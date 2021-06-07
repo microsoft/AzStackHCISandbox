@@ -3075,7 +3075,7 @@ function New-SDNS2DCluster {
 
             New-StoragePool @params -PhysicalDisks (Get-PhysicalDisk | Where-Object { $_.CanPool -eq $true }) | Out-Null
 
-            Get-PhysicalDisk | Where-Object { $_.Size -lt 127GB } | Set-PhysicalDisk -MediaType HDD | Out-Null
+            Get-PhysicalDisk | Where-Object { $_.Size -lt 127GB } | Set-PhysicalDisk -MediaType SSD | Out-Null
 
             $params = @{
             
@@ -3084,11 +3084,11 @@ function New-SDNS2DCluster {
                 StoragePoolFriendlyName = 'SDN_S2D_Storage'
                 ResiliencySettingName   = 'Mirror'
                 PhysicalDiskRedundancy  = 1
-                
+                SizeBytes= '250gb' 
                 
             }
 
-            New-Volume @params -UseMaximumSize  | Out-Null
+            New-Volume @params   | Out-Null
 
             # Set Virtual Environment Optimizations
 

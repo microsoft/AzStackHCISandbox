@@ -8,6 +8,10 @@ ContosoDC: Windows Server that is our Domain Controller.
 
 Start by opening the RDP Connection to AdminCenter located on the Desktop. 
 
+<img title ="Getting Started Screenshot1" alt="Alt text" src="https://github.com/microsoft/AzStackHCISandbox/blob/main/Scenerios/Media/Screenshots/GettingStarted_1.png">
+
+
+
 Log into the VM
 User Name Contoso\Administrator
 Password: Password01
