@@ -7,7 +7,8 @@ After the deployment is complete, we will have three Virtual Machines on your Az
 #### BGP-TOR-Router: A Windows Server running Routing and Remote Access Server
 #### ContosoDC: Windows Server that is our Domain Controller.
 
-![](file:///C:\Users\migodfre\OneDrive%20-%20Microsoft\Documents\GitHub\AzStackHCISandbox\Scenerios\Media\Screenshots\GettingStarted_1.png)
+![Alt text](https://github.com/microsoft/AzStackHCISandbox/blob/main/Scenerios/Media/Screenshots/GettingStarted_1.jpg?raw=true "Getting Started 1")
+
 
 Start by opening the RDP Connection to AdminCenter located on the Desktop. 
 
@@ -22,7 +23,7 @@ https://admincenter.contoso.com
 
 Log In and Add the Hyper-Converged Cluster AzStackCluster to Windows Admin Center with Network Controller: https://nc01.contosoc.com, you will need to click "Validate" to validate the connection to the Network Controller. You may be prompted to install the Network Controller PowerShell Module, do that and continue.
 
-![](file:///C:\Users\migodfre\OneDrive%20-%20Microsoft\Documents\GitHub\AzStackHCISandbox\Scenerios\Media\Screenshots\Getting%20Started%202.png)
+![Alt text](https://github.com/microsoft/AzStackHCISandbox/blob/main/Scenerios/Media/Screenshots/Getting%20Started%202.png?raw=true "Getting Started 2")
 
 Now that we have our Cluster connected to Admin Center we can start managing it, The first thing we will want to do is install the Extensions necessary for Admin Center.  
 
@@ -55,7 +56,7 @@ In the Cluster Manager, select Settings in the bottom left corner.
 	3) Click "Register"
 	4) Follow the Registration Instructions, using your own Azure Subscription. You will need 
 
-![](file:///C:\Users\migodfre\OneDrive%20-%20Microsoft\Documents\GitHub\AzStackHCISandbox\Scenerios\Media\Screenshots\Getting%20Started%203.png)
+![Alt text](https://github.com/microsoft/AzStackHCISandbox/blob/main/Scenerios/Media/Screenshots/Getting%20Started%203.png?raw=true "Getting Started 3")
 
 
 ## Register a cluster using PowerShell
