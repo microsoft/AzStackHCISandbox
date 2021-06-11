@@ -1,6 +1,6 @@
 Now that we have the cluster Registered and you have some familiarity with the Admin Center Cluster Manager toolset, we can begin setting up our HCI Cluster. The first step is to ensure we are getting performance information on our Storage Spaces Direct Volumes and Disks. Then we can create a Volume, where we will take advantage of the different topologies available to us. We will ensure we have performance and security enabled features on our volumes as well as understand every day maintenance activities. 
 
-<#
+
 Enable Cluster Storage Performance
 Navigate to one of the cluster nodes, you can do this in one of 2 ways.
 	1) Switch Admin Center over to Server Manager and select one of the ASZHost nodes. 
@@ -9,22 +9,26 @@ Navigate to one of the cluster nodes, you can do this in one of 2 ways.
 	4) Run the command "Start-ClusterPerformanceHistory" 
 	5) This will create a new volume
 
-#>
+
 
 Creating Volumes
 Now we are ready to create some volumes in Admin Center. First we will create a Two-Way Mirrored volume, directly in Admin Center, then because we are running a 2 node cluster, we will want to build a Nested-Resiliancy Volume in both a Mirrored and Parity configuration, which we will do in PowerShell. Lastly we will want to turn on Data-Deduplication for these nodes.
 
 Lets start in Cluster Manager, start by selecting Volumes.
+	
 	1) Select Inventory
+   
 	2) Select the Create button.
+   
 	3) In the Create Volume wizard, fill in the values. You can use the sample values below, or provide your own.
 		Name: MirroredVolume1
 		Resiliency: Two-Way Mirror
 		Size on HDD: 100 GB
 		More Options: Use Integrity Checksums
+
 	4) Click Create
 	
-	
+	![alt text](media/Screenshots/02-res/02-res-01-01.png "Create Volume Wizard-WAC")
 	
 	Notice the size of the footprint is dynamic, as you choose a larger size, the footprint shows that. In the case of a two way mirror, the 100GB volume, uses 200Gb of space on the Storage Pool.
 	

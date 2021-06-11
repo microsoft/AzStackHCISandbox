@@ -1,4 +1,5 @@
-# Welcome to the Azure Stack HCI Lab. 
+# Welcome to the Azure Stack HCI Sandbox. 
+
 In this lab you can do all the normal operations you would expect to do with an Azure Stack HCI Cluster located in your Datacenter or Remote/Branch Office. This Lab is meant to be a nested solution that allows you to test, deploy and understand Azure Stack HCI and all of it's components, including Hyper-V, Failover Clustering, Storage Spaces Direct (S2D) and Software Defined Networking (SDN). In this lab we will focus on management of a 2-node cluster, that has been built and deployed for you, as part of this lab. You can work on the suggested  scenarios presented in this lab documentation, or try out any scenarios you can come up with, the freedom is yours! 
 
 After the deployment is complete, we will have three Virtual Machines on your Azure host, two Azure Stack HCI Hosts named AZSHost1 & 2 and a Management VM, named AZSMGMT. The AZSMGMT VM is another nested Hyper-V Host, that contains 3 more Virtual Machines;
@@ -7,7 +8,7 @@ After the deployment is complete, we will have three Virtual Machines on your Az
 #### BGP-TOR-Router: A Windows Server running Routing and Remote Access Server
 #### ContosoDC: Windows Server that is our Domain Controller.
 
-![Alt text](https://github.com/microsoft/AzStackHCISandbox/blob/main/Scenerios/Media/Screenshots/GettingStarted_1.jpg?raw=true "Getting Started 1")
+![alt text](media/Screenshots/01-res/GettingStarted_1.png "Move Screen for Live Migration")
 
 
 Start by opening the RDP Connection to AdminCenter located on the Desktop. 
@@ -23,7 +24,8 @@ https://admincenter.contoso.com
 
 Log In and Add the Hyper-Converged Cluster AzStackCluster to Windows Admin Center with Network Controller: https://nc01.contosoc.com, you will need to click "Validate" to validate the connection to the Network Controller. You may be prompted to install the Network Controller PowerShell Module, do that and continue.
 
-![Alt text](https://github.com/microsoft/AzStackHCISandbox/blob/main/Scenerios/Media/Screenshots/Getting%20Started%202.png?raw=true "Getting Started 2")
+
+![alt text](media/Screenshots/01-res/Getting%20Started%202.png "Move Screen for Live Migration")
 
 Now that we have our Cluster connected to Admin Center we can start managing it, The first thing we will want to do is install the Extensions necessary for Admin Center.  
 
@@ -56,7 +58,8 @@ In the Cluster Manager, select Settings in the bottom left corner.
 	3) Click "Register"
 	4) Follow the Registration Instructions, using your own Azure Subscription. You will need 
 
-![Alt text](https://github.com/microsoft/AzStackHCISandbox/blob/main/Scenerios/Media/Screenshots/Getting%20Started%203.png?raw=true "Getting Started 3")
+![alt text](media/Screenshots/01-res/Getting%20Started%203.png "Move Screen for Live Migration")
+
 
 
 ## Register a cluster using PowerShell

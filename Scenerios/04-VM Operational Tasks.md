@@ -60,15 +60,16 @@ In this exercise we will be re-sizing a Cluster Shared Volume, this is a very co
 ![alt text](media/Screenshots/04-res/04-0303.png "Expand Volume Screen-WAC")
 
 4) Select Expand and Monitor the Notifications in Admin Center to ensure the job completed.
+   
 5) To complete the same task in PowerShell, use the following command:
 
-##### If the disk is NOT using Storage Tiers:
+##### If the disk is **NOT** using Storage Tiers:
 
 ```PowerShell
 Get-VirtualDisk S2D_vDisk1 | Resize-VirtualDisk -Size 300GB
 ```
 
-##### If the disk IS using StorageTiers
+##### If the disk **IS** using StorageTiers
 
 ```PowerShell
 Get-VirtualDisk [friendly_name] | Get-StorageTier | Select FriendlyName
@@ -76,16 +77,16 @@ Get-StorageTier [friendly_name] | Resize-StorageTier -Size [size]
 ```
 After you have resized the Disk, you will need to Resize the partition:
 
-### Choose virtual disk
+**Choose virtual disk**
 ```Powershell
 $VirtualDisk = Get-VirtualDisk S2D_vDisk1
 ```
-### Get its partition
+**Get its partition**
 ```PowerShell
 $Partition = $VirtualDisk | Get-Disk | Get-Partition | Where PartitionNumber -Eq 2
 ```
 
-### Resize to its maximum supported size
+**Resize to its maximum supported size**
 ```PowerShell
 $Partition | Resize-Partition -Size ($Partition | Get-PartitionSupportedSize).SizeMax
 ```
