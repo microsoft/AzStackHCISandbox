@@ -13,7 +13,7 @@ In this lab, you will deploy a solution with the following requirements:
 2. Load balance these VMs on Ports 80 (Web) and 3389 (RDP).
 3. Ensure that a health probe is enabled for the website.
 
-![alt text](res/3-01.png "Run SDN Explorer") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-01.png "Run SDN Explorer") 
 
 ## Exercise 01: Deploy the Web Server VMs
 
@@ -39,19 +39,19 @@ In this exercise, you will run a script that will create the Load Balancer and V
 
 1. From the desktop on the console VM, load the PowerShell ISE with Admin Rights.
 
-![alt text](res/3-03.png "PowerShell ISE") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-03.png "PowerShell ISE") 
 
-2. In the PowerShell ISE, navigate to ``C:\SCRIPTS\LABS\03_Software_Load_Balancers_NAT\``
+1. In the PowerShell ISE, navigate to ``C:\SCRIPTS\LABS\03_Software_Load_Balancers_NAT\``
 
-3. Load the file ``.\03.01_LoadBalanceWebServerVMs.ps1``
+2. Load the file ``.\03.01_LoadBalanceWebServerVMs.ps1``
 
-4. Examine the PowerShell Script to see how the Load Balancer is provisioned.
+3. Examine the PowerShell Script to see how the Load Balancer is provisioned.
 
-5. Run the script.
+4. Run the script.
 
-6. After the script completes, take note of the VIP that was assigned.
+5. After the script completes, take note of the VIP that was assigned.
 
-![alt text](res/3-02.png "Get the VIP") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-02.png "Get the VIP") 
 
 ## Exercise 03: Test the Load Balancer
 
@@ -61,11 +61,11 @@ In this exercise, you will test out the load balancer.
 
 2. To test to see if the RDP Server is working, run the following command:  ``mstsc /v:<vip ipaddress>``
 
-![alt text](res/3-04.png "RDP Command Line Logon") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-04.png "RDP Command Line Logon") 
 
-3. You should see a password prompt. After entering the password, you should receive a certificate warning dialog. Note that you are being routed to either WebServerVM1 or WebServerVM2.
+1. You should see a password prompt. After entering the password, you should receive a certificate warning dialog. Note that you are being routed to either WebServerVM1 or WebServerVM2.
 
-![alt text](res/3-05.png "RDP Certificate Warning Dialog") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-05.png) "RDP Certificate Warning Dialog") 
 
 4. After connecting with RDP, log out of the RDP Session.
 
@@ -82,31 +82,31 @@ In this exercise, you will use SDN Explorer to view load balancer configuration 
 1. Log into **Console** using RDP.
 2. On the desktop, **Right-Click** on the **SDN Explorer** shortcut and select **Run with PowerShell**.
 
-![alt text](res/3-06.png "Run SDN Explorer") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-06.png "Run SDN Explorer") 
 
-3. SDN Explorer will now appear.
+1. SDN Explorer will now appear.
 
-![alt text](res/3-07.png "This is SDN Explorer") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-07.png "This is SDN Explorer") 
 
-4. In SDN Explorer, select Public IP Addresses. 
+1. In SDN Explorer, select Public IP Addresses. 
 
-5. Next, select the WEBLB-IP button.
+2. Next, select the WEBLB-IP button.
 
-6. In the WEBLB-IP configuration, take note of the Public IP address and the reference to the WEBLB load balancer configuration.
+3. In the WEBLB-IP configuration, take note of the Public IP address and the reference to the WEBLB load balancer configuration.
 
-![alt text](res/3-08.png "SDN Explorer Public IP") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-08.png "SDN Explorer Public IP") 
 
-7. Next, go back to the SDN Explorer main menu and click Load Balancer, select the WEBLB and then view its properties. Notice the references to the Backend Servers (Network Interfaces) which are the web servers, and the load balancer rules which are located below in the configuration. 
+1. Next, go back to the SDN Explorer main menu and click Load Balancer, select the WEBLB and then view its properties. Notice the references to the Backend Servers (Network Interfaces) which are the web servers, and the load balancer rules which are located below in the configuration. 
 
-![alt text](res/3-09.png "SDN Explorer Load Balancer") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-09.png "SDN Explorer Load Balancer") 
 
 If you look at the load balancer rules below, you can see the rules for ports 80 and 443. Notice the ```enableFloatingIP``` setting. We'll look at this in lab 3.04.
 
-![alt text](res/3-10.png "SLB Rules") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-10.png "SLB Rules") 
 
 And finally, you can see the health probe that was also created:
 
-![alt text](res/3-11.png "SLB Health Probe") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-11.png "SLB Health Probe") 
 
 ## Exercise 05: Examine Load Balancer Deployment and BGP
 
@@ -120,19 +120,19 @@ Part of the process of creating a load balancer is the creation of the VIP. In t
 
 3. Select **bgp-tor-router** from the menu
 
-![alt text](res/3-12.png "Select bgp-tor-router") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-12.png "Select bgp-tor-router") 
 
 4. Next, select **PowerShell** and logon.
 
 5. After logging in, run the PowerShell command ```Get-BGPPeer```
 
-![alt text](res/3-13.png "Get-BGPPeer") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-13.png "Get-BGPPeer") 
 
 In the output, you will see that the one SLB VM and one RAS Gateway VM are peering with the router and show in a connected state. The RAS Gateway VM that is not connected is a standby Gateway VM.
 
 4. Next, we will want to see the BGP routes that the bgp-tor-router has learned. Run the PowerShell command: ```Get-BGPRouteInformation```
 
-![alt text](res/3-14.png "Get-BGPRouteInformation") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-14.png "Get-BGPRouteInformation") 
 
 In the output, you will see your VIP with the next hop being the IP Address (Provider Network) of the MUX VM. So the flow will go:
 
@@ -175,13 +175,13 @@ The purpose of this exercise is to show you how to remove a load balancer.
 
 In this lab we will be configuring a SLB for OUTBOUND NAT that will be able to access the Internet. The following diagram details what you will be creating:
 
-![alt text](res/3-15.png "Diagram of LAB 03.02") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-15.png) "Diagram of LAB 03.02") 
 
 ## Exercise 01: Create and configure a Load Balancer and assign it to WebServerVM1's network interface
 
 1. From the desktop on the console VM, load the PowerShell ISE with Admin Rights.
 
-![alt text](res/3-03.png "PowerShell ISE") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-03.png "PowerShell ISE") 
 
 2. In the PowerShell ISE, navigate to ``C:\SCRIPTS\LABS\03_Software_Load_Balancers_NAT\``
 
@@ -197,7 +197,7 @@ In this lab we will be configuring a SLB for OUTBOUND NAT that will be able to a
 
 2. In Hyper-V Manager, navigate to **SDNHOST3** and then connect and logon to **WebServerVm1**
 
-![alt text](res/3-16.png "Hyper-V-Manager") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-16.png "Hyper-V-Manager") 
 
 3. In WebServerVM1, open a **CMD console** or **PowerShell Console**
 
@@ -207,15 +207,15 @@ In this lab we will be configuring a SLB for OUTBOUND NAT that will be able to a
 
 6. Let's try pinging the IP address of the console server which is 192.168.1.10 instead...
 
-![alt text](res/3-17.png "Failure!") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-17.png "Failure!") 
 
-7. Let's try one more thing. Let's create a network share to the console VM's address. Enter the following command:
+1. Let's try one more thing. Let's create a network share to the console VM's address. Enter the following command:
 
 ```net use z: \\192.168.1.10\c$```
 
 8. This command should work and you should now be able to connect to the console VM through the Z drive:.
 
-![alt text](res/3-18.png "Success!") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-18.png"Success!") 
 
 In conclusion, you now know that you cannot ```ping``` the resources, you don't have any name resolution, but you can connect through TCP to systems outside of your network. It is now obvious that the only way to easily provide connections to the outside network to your tenants is to provide name resolution to your Tenant VMs.
 
@@ -224,7 +224,7 @@ In conclusion, you now know that you cannot ```ping``` the resources, you don't 
 
 Hosted virtual machines (VMs) and applications require DNS to communicate within their own networks and with external resources on the Internet. With iDNS, you can provide tenants with DNS name resolution services for their isolated, local name space and for Internet resources.
 
-![alt text](res/3-19.png "Success!")
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-19.png "Success!")
 
 >**Note:** Because the iDNS service is not accessible from tenant Virtual Networks, other than through the iDNS proxy, the server is not vulnerable to malicious activities on tenant networks
 
@@ -234,15 +234,15 @@ In this exercise, we will run a script that will install and configure iDNS.
 
 1. From the desktop on the console VM, load the PowerShell ISE with Admin Rights.
 
-![alt text](res/3-03.png "PowerShell ISE") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-03.png "PowerShell ISE") 
 
-2. In the PowerShell ISE, navigate to ``C:\SCRIPTS\LABS\03_Software_Load_Balancers_NAT\``
+1. In the PowerShell ISE, navigate to ``C:\SCRIPTS\LABS\03_Software_Load_Balancers_NAT\``
 
-3. Load the file ``.\03.03_Deploy_iDNS.ps1``
+2. Load the file ``.\03.03_Deploy_iDNS.ps1``
 
-4. Examine the PowerShell Script to see how iDNS is provisioned.
+3. Examine the PowerShell Script to see how iDNS is provisioned.
 
-5. Run the script.
+4. Run the script.
 
 ## Exercise 02: Test iDNS
 
@@ -250,17 +250,17 @@ In this exercise, we will run a script that will install and configure iDNS.
 
 2. In Hyper-V Manager, connect to Hyper-V Server **SDNHOST3** and then connect and logon to **WebServerVm1**
 
-![alt text](res/3-16.png "Hyper-V-Manager") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-16.png "Hyper-V-Manager") 
 
-3. In WebServerVM1, open a **CMD console** or **PowerShell Console** with admin rights
+1. In WebServerVM1, open a **CMD console** or **PowerShell Console** with admin rights
 
-4. In the console, run the following command: ```ping console.contoso.com```.
+2. In the console, run the following command: ```ping console.contoso.com```.
 
-5. You will notice that while ping is still not working (ICMP is blocked by default by the SLB), the FQDN resolves the correct IP using the DNS server running on Admin Center.
+3. You will notice that while ping is still not working (ICMP is blocked by default by the SLB), the FQDN resolves the correct IP using the DNS server running on Admin Center.
 
-6. Next, open a browser and navigate to ```microsoft.com```.
+4. Next, open a browser and navigate to ```microsoft.com```.
 
-![alt text](res/3-20.png "Outbound NAT working...") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-20.png "Outbound NAT working...") 
 
 You should now see that web access is working.
 
@@ -269,21 +269,21 @@ You should now see that web access is working.
 
  1. From the desktop on the console VM, click on **DNS**
 
-![alt text](res/3-22.png "DNS Shortcut") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-22.png "DNS Shortcut") 
 
-2. In the **Connect to DNS Server** dialog, enter **Admincenter** for the computer that is hosting you tenant DNS.
+1. In the **Connect to DNS Server** dialog, enter **Admincenter** for the computer that is hosting you tenant DNS.
 
-![alt text](res/3-21.png "Connect to DNS Server) 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-21.png  "Connect to DNS Server) 
 
-3. In **DNS Manager**, expand **Forward Lookup Zones** and then expand **tenantsdn.local** you will notice that there are no records of note listed. 
+1. In **DNS Manager**, expand **Forward Lookup Zones** and then expand **tenantsdn.local** you will notice that there are no records of note listed. 
 
-![alt text](res/3-24.png "Empty DNS") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-24.png "Empty DNS") 
 
-4. In **Hyper-V Manager** or **Windows Admin Center**, restart WebServerVM1 and WebServerVM2.
+1. In **Hyper-V Manager** or **Windows Admin Center**, restart WebServerVM1 and WebServerVM2.
 
-5. After the VMs have finished restarting, navigate back to to **DNS Manager** and refresh **tenantsdn.local**. You should now see records under **tenantsdn.local**.
+2. After the VMs have finished restarting, navigate back to to **DNS Manager** and refresh **tenantsdn.local**. You should now see records under **tenantsdn.local**.
 
-![alt text](res/3-25.png "We have records in DNS!")
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-25.png  "We have records in DNS!")
 
 As you can see, you now have entries in DNS. This means that you now have the ability to resolve names of other tenant VMs within your VM Network. In the next exercise you will test this out.
 
@@ -301,7 +301,7 @@ In this exercise you will see how iDNS allows you to resolve names of other tena
 
 You should be able to resolve the ip for **WebServerVM2** as well as ping **WebServerVM2** from **WebServerVM1**.
 
-![alt text](res/3-26.png "We have records in DNS!")
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-26.png "We have records in DNS!")
 
 
 # Lab 03.04 Use the Software Load Balancer for forwarding traffic
@@ -316,15 +316,15 @@ In this exercise, we will run a script to create the forwarding public VIP (```4
 
 1. From the desktop on the console VM, load the PowerShell ISE with Admin Rights.
 
-![alt text](res/3-03.png "PowerShell ISE") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-03.png  "PowerShell ISE") 
 
-2. In the PowerShell ISE, navigate to ``C:\SCRIPTS\LABS\03_Software_Load_Balancers_NAT\``
+1. In the PowerShell ISE, navigate to ``C:\SCRIPTS\LABS\03_Software_Load_Balancers_NAT\``
 
-3. Load the file ``.\03.04_Create_Forwarding_VIP.ps1``
+2. Load the file ``.\03.04_Create_Forwarding_VIP.ps1``
 
-4. Examine the PowerShell Script to see how the public VIP is provisioned and assigned.
+3. Examine the PowerShell Script to see how the public VIP is provisioned and assigned.
 
-5. Run the script.
+4. Run the script.
 
 ## Exercise 02: Test Forwarding VIP
 
@@ -341,13 +341,13 @@ In this exercise, we will run a script to remove forwarding public VIP that was 
 
 1. From the desktop on the console VM, load the PowerShell ISE with Admin Rights.
 
-![alt text](res/3-03.png "PowerShell ISE") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/188ef296e33892e7ee0cdf29e5112a2e8e99998b/Scenarios/Media/Screenshots/07-res/3-03.png  "PowerShell ISE") 
 
-2. In the PowerShell ISE, navigate to ``C:\SCRIPTS\LABS\03_Software_Load_Balancers_NAT\``
+1. In the PowerShell ISE, navigate to ``C:\SCRIPTS\LABS\03_Software_Load_Balancers_NAT\``
 
-3. Load the file ``.\03.04_Delete_Forwarding_VIP.ps1``
+2. Load the file ``.\03.04_Delete_Forwarding_VIP.ps1``
 
-4. Examine the PowerShell Script to see how the public VIP is removed.
+3. Examine the PowerShell Script to see how the public VIP is removed.
 
-5. Run the script.
+4. Run the script.
 
