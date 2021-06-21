@@ -26,7 +26,7 @@ https://admincenter.contoso.com
 Log In and Add the Hyper-Converged Cluster AzStackCluster to Windows Admin Center with Network Controller: https://nc01.contosoc.com, you will need to click "Validate" to validate the connection to the Network Controller. You may be prompted to install the Network Controller PowerShell Module, do that and continue.
 
 
-![alt text]([media/Screenshots/01-res/Getting%20Started%202.png](https://github.com/microsoft/AzStackHCISandbox/blob/0503bebf131f0dfb66e030b51e9689d42a5eaf52/Scenarios/Media/Screenshots/01-res/Getting%20Started%202.png) "Move Screen for Live Migration")
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/0503bebf131f0dfb66e030b51e9689d42a5eaf52/Scenarios/Media/Screenshots/01-res/Getting%20Started%202.png) "Move Screen for Live Migration")
 
 Now that we have our Cluster connected to Admin Center we can start managing it, The first thing we will want to do is install the Extensions necessary for Admin Center.  
 
@@ -59,7 +59,7 @@ In the Cluster Manager, select Settings in the bottom left corner.
 	3) Click "Register"
 	4) Follow the Registration Instructions, using your own Azure Subscription. You will need 
 
-![alt text]([media/Screenshots/01-res/Getting%20Started%203.png](https://github.com/microsoft/AzStackHCISandbox/blob/0503bebf131f0dfb66e030b51e9689d42a5eaf52/Scenarios/Media/Screenshots/01-res/Getting%20Started%203.png) "Move Screen for Live Migration")
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/0503bebf131f0dfb66e030b51e9689d42a5eaf52/Scenarios/Media/Screenshots/01-res/Getting%20Started%203.png) "Move Screen for Live Migration")
 
 
 
