@@ -13,25 +13,25 @@ SDN Explorer allows you to view the internal configuration of Network Controller
 1. Log into **Console** using RDP
 2. On the desktop, **Right-Click** on the **SDN Explorer** shortcut and select **Run with PowerShell**
 
-![alt text](res/2-01.png "Run SDN Explorer") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-01.png"Run SDN Explorer") 
 
-3. SDN Explorer will now appear.
+1. SDN Explorer will now appear.
 
-![alt text](res/2-02.png "This is SDN Explorer") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-02.png "This is SDN Explorer") 
 
-4. In SDN Explorer, click on **Network Interfaces**
+1. In SDN Explorer, click on **Network Interfaces**
 
-5. Click on the **TenantVM1** Network Adapter 
+2. Click on the **TenantVM1** Network Adapter 
 
-![alt text](res/2-03.png "Get Network Interface") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-03.png "Get Network Interface") 
 
 6. In the output, take note of the subnet reference. In this example, the reference is *"/virtualNetworks/TenantNetwork1/subnets/TenantSubnet1"*
 
-![alt text](res/2-04.png "TenantVM1 Network Interface") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-04.png "TenantVM1 Network Interface") 
 
 7. Go back to the SDN Explorer main menu and select **VirtualNetworks**, then select **TenantNetwork1**. Look at the *IPConfigurations* section and see the references to the both TenantVM1 and TenantVM2 Network Interfaces.
 
-![alt text](res/2-05.png "TenantVM1 Network Interface") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-05.png "TenantVM1 Network Interface") 
 
 In conclusion, SDN Explorer is a extremely useful tool to dynamically view Network Controller configuration information. However, it is not recommended that SDN Explorer be used for actual Network Controller configuration. For changing Network Controller configuration, it is recommended to use either the Network Controller PowerShell cmdlets or the Network Controller REST API.
 
@@ -43,7 +43,7 @@ In this exercise you will collect the Server Information using Network Controlle
 1. Log into **Console** using RDP
 2. From the Desktop, open PowerShell ISE
 
-![alt text](res/2-06.png "PowerShell ISE Icon") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-06.png "PowerShell ISE Icon") 
 
 3. In the PowerShell ISE, enter and then execute the following command:
 
@@ -58,7 +58,7 @@ In this exercise, we are going to get the same information that we received in t
 1. Log into **Console** using RDP
 2. From the Desktop, open PowerShell ISE
 
-![alt text](res/2-06.png "PowerShell ISE Icon") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-06.png "PowerShell ISE Icon") 
 
 3. In the PowerShell ISE, enter and then execute the following command:
 
@@ -70,7 +70,7 @@ In this exercise, we are going to get the same information that we received in t
 
 5. Notice that in the output, we can see that the host is connected to the SLB Manager. This means that Network Controller is connected to the Hyper-V Host via the NCHOSTAgent and also the In the next exercise, we will be looking at how Network Contoller connects to the host.
 
-![alt text](res/2-07.png "Get-NetworkControllerServer Output") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-07.png "Get-NetworkControllerServer Output") 
 
 It should be noted that using **ConvertTo-JSON** is not required and is not to be used if you wish to treat the output from this cmdlet as an object. In the last few exercises, you've seen all the methods that you can interface with Network Controller. The other options that you have to administer and configure SDN are System Center Virtual Machine Manager (SCVMM) (*which requires SCVMM install Network Controller*) and Windows Admin Center.
 
@@ -78,11 +78,11 @@ It should be noted that using **ConvertTo-JSON** is not required and is not to b
 
 In this exercise, we are going to look at how we can verify that Network Controller controller is connected to the Hyper-V Host SDNHOST2. The following graphic describes how Network Controller communicates with Hyper-V Hosts to push down policies:
 
-![alt text](res/2-12.png "SDN Policy Flow to Hosts") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-12.png "SDN Policy Flow to Hosts") 
 
 1. Using Windows Admin Center, go to SDNHOST2 and then select PowerShell and login.
 
-![alt text](res/2-08.png "SDNHOST2 PowerShell") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-08.png "SDNHOST2 PowerShell") 
 
 2. In SDNHOST2's PowerShell, let's see if the host is connected to network controller by running the following three commands:
 
@@ -93,7 +93,7 @@ In this exercise, we are going to look at how we can verify that Network Control
     **Get-NetTCPConnection -LocalPort 6640**
 
     
-![alt text](res/2-09.png "Connection to Network Controller and Service Health") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-09.png "Connection to Network Controller and Service Health") 
 
 From the results, you can see that the NCHostAgent and SlbHostAgent are running AND we have multiple connections to TCP port 6640. These results should be the same across all nodes. If not, then there is an issue preventing communication with the Network Controller from the Hyper-V Host.
 
@@ -103,13 +103,13 @@ From the results, you can see that the NCHostAgent and SlbHostAgent are running 
 
 **Get-ProviderAddress**
 
-![alt text](res/2-10.png "Get Provider Address") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-10.png "Get Provider Address") 
 
 These HNV Provider IP Addresses (PA IPs) are assigned to Ethernet Adapters created in a separate TCPIP network compartment and have an adapter name of VLANX where X is the VLAN assigned to the HNV Provider (transport) logical network. You can find the compartment by running the following command:
 
 **ipconfig /allcompartments**
 
-![alt text](res/2-11.png "Compartment 3 for PA") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-11.png "Compartment 3 for PA") 
 
 
 ## Exercise 06: Examine SDNHOST2's Network Controller Certificate location
@@ -120,7 +120,7 @@ In the default SDNEXPRESS configuration, Network Controller communicates with Ho
 
  **Get-ChildItem -Path Cert:\LocalMachine\Root**
 
-![alt text](res/2-13.png "Find the NC Certifcate on Host") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-13.png "Find the NC Certifcate on Host") 
 
 
 ## Exercise 07: Examine Network Controller's Setup
@@ -129,23 +129,23 @@ In this exercise, you will be logging into NC01.CONTOSO.COM (the single-node NC 
 
 1. Using Windows Admin Center, go to SDNHOST2 and then select PowerShell and login.
 
-![alt text](res/2-14.png "NC01 PowerShell") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-14.png "NC01 PowerShell") 
 
 2. In PowerShell, type the following command to see the all of the micro-services that make up Network Controller, the node their running on (since we have only one node, then you are going only see NC01), and their status:
 
 **Get-NetworkControllerReplica**
 
-![alt text](res/2-15.png "Get-NetworkControllerReplica") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-15.png "Get-NetworkControllerReplica") 
 
 3. Next, run **Get-NetworkController** and examine the certificate thumbprint. Note that this thumbprint will match the thumbprint found in Exercise 6. 
 
-![alt text](res/2-16.png "Get-NetworkController") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-16.png "Get-NetworkController") 
 
 4. Next, let's look at the certificate attached to port 443 (SSL) on network controller. This is the port that you authenticate with when running REST API calls as well as internal communications for SDN.  Run the following command in PowerShell:
 
 **netsh http show sslcert**
 
-![alt text](res/2-17.png "Get-NetworkController") 
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/60834d1418a0db7e8436dab35e2eb57d5180aed7/Scenarios/Media/Screenshots/06-res/2-17.png "Get-NetworkController") 
 
 
 # End of Lab
