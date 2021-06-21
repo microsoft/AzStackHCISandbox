@@ -8,7 +8,8 @@ After the deployment is complete, we will have three Virtual Machines on your Az
 #### BGP-TOR-Router: A Windows Server running Routing and Remote Access Server
 #### ContosoDC: Windows Server that is our Domain Controller.
 
-![alt text](Scenarios/Media/Screenshots/01-res/GettingStarted_1.jpg "Move Screen for Live Migration")
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/aa1a236897d21c036703fda057c4ec0689a351a4/Scenarios/Media/Screenshots/01-res/GettingStarted_1.png "Click on Admin Center RDP Session")
+
 
 
 Start by opening the RDP Connection to AdminCenter located on the Desktop. 
