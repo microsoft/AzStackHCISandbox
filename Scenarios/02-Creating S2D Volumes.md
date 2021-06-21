@@ -1,14 +1,18 @@
 Now that we have the cluster Registered and you have some familiarity with the Admin Center Cluster Manager toolset, we can begin setting up our HCI Cluster. The first step is to ensure we are getting performance information on our Storage Spaces Direct Volumes and Disks. Then we can create a Volume, where we will take advantage of the different topologies available to us. We will ensure we have performance and security enabled features on our volumes as well as understand every day maintenance activities. 
 
 
-Enable Cluster Storage Performance
+#### Enable Cluster Storage Performance
 Navigate to one of the cluster nodes, you can do this in one of 2 ways.
 
-	1) Switch Admin Center over to Server Manager and select one of the ASZHost nodes. 
-	2) In Cluster Manager, Select Servers under the compute Menu, then select Inventory. Click the hyperlink for one of the Host nodes, then select the Manage button. 
-	3) Once you are managing a HCI Node, select the PowerShell extension, and log in to your remote PowerShell session.
-	4) Run the command "Start-ClusterPerformanceHistory" 
-	5) This will create a new volume
+1) Switch Admin Center over to Server Manager and select one of the ASZHost nodes. 
+
+2) In Cluster Manager, Select Servers under the compute Menu, then select Inventory. Click the hyperlink for one of the Host nodes, then select the Manage button. 
+
+3) Once you are managing a HCI Node, select the PowerShell extension, and log in to your remote PowerShell session.
+
+4) Run the command "Start-ClusterPerformanceHistory" 
+
+5) This will create a new volume
 
 
 
@@ -32,21 +36,27 @@ Now we are ready to create some volumes in Admin Center. First we will create a 
 ![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/4f9095cf5d3e27da33b82be89077d1aca8875e53/Scenarios/Media/Screenshots/02-res/02-res-01-01.png "Create Volume Wizard-WAC")
 
 
-	Notice the size of the footprint is dynamic, as you choose a larger size, the footprint shows that. In the case of a two way mirror, the 100GB volume, uses 200Gb of space on the Storage Pool.
+Notice the size of the footprint is dynamic, as you choose a larger size, the footprint shows that. In the case of a two way mirror, the 100GB volume, uses 200Gb of space on the Storage Pool.
 
 A two way mirror, as you may recall from the class, means the blocks are written across each server. This means we can loose one of your server nodes, and the volumes will remain operational. This is great, except what would happen, if in the server that is still online a single hard drive went offline, your volumes will go offline, and so will your virtual machines. So we can solve this with Nested Resiliancy, or creating a 2 way mirror across the cluster, then a 2 way mirror in each node. We can only do this in PowerShell and will need to use Storage Tiers to do so.
 	
 Storage Spaces Direct in Windows Server 2019 offers two new resiliency options implemented in software, without the need for specialized RAID hardware:
-		• Nested two-way mirror. Within each server, local resiliency is provided by two-way mirroring, and then further resiliency is provided by two-way mirroring between the two servers. It's essentially a four-way mirror, with two copies in each server. Nested two-way mirroring provides uncompromising performance: writes go to all copies, and reads come from any copy.
-		• Nested mirror-accelerated parity. Combine nested two-way mirroring, from above, with nested parity. Within each server, local resiliency for most data is provided by single bitwise parity arithmetic, except new recent writes which use two-way mirroring. Then, further resiliency for all data is provided by two-way mirroring between the servers. For more information about how mirror-accelerated parity works, see Mirror-accelerated parity.
+
+• Nested two-way mirror. Within each server, local resiliency is provided by two-way mirroring, and then further resiliency is provided by two-way mirroring between the two servers. It's essentially a four-way mirror, with two copies in each server. Nested two-way mirroring provides uncompromising performance: writes go to all copies, and reads come from any copy.
 		
-	![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/4f9095cf5d3e27da33b82be89077d1aca8875e53/Scenarios/Media/Screenshots/02-res/02-res-0202.png "Two-Way Mirror Explination")
+• Nested mirror-accelerated parity. Combine nested two-way mirroring, from above, with nested parity. Within each server, local resiliency for most data is provided by single bitwise parity arithmetic, except new recent writes which use two-way mirroring. Then, further resiliency for all data is provided by two-way mirroring between the servers. For more information about how mirror-accelerated parity works, see Mirror-accelerated parity.
+		
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/4f9095cf5d3e27da33b82be89077d1aca8875e53/Scenarios/Media/Screenshots/02-res/02-res-0202.png "Two-Way Mirror Explination")
 
 Open up PowerShell on the Node in admin Center you can do this in one of 2 ways.
-		1) Switch Admin Center over to Server Manager and select one of the ASZHost nodes. 
-		2) In Cluster Manager, Select Servers under the compute Menu, then select Inventory. Click the hyperlink for one of the Host nodes, then select the Manage button. 
-		3) In PowerShell we will create 2 Storage Tiers, one for Nested Mirror and one for Nested Parity.
-		4) Run the following PowerShell Commands:
+	
+	1) Switch Admin Center over to Server Manager and select one of the ASZHost nodes. 
+		
+	2) In Cluster Manager, Select Servers under the compute Menu, then select Inventory. Click the hyperlink for one of the Host nodes, then select the Manage button. 
+		
+	3) In PowerShell we will create 2 Storage Tiers, one for Nested Mirror and one for Nested Parity.
+		
+	4) Run the following PowerShell Commands:
 	
 ``` powerShell			
 			# For mirror
@@ -54,7 +64,8 @@ Open up PowerShell on the Node in admin Center you can do this in one of 2 ways.
 ```
 
 			
-		5) To create the Nested Mirror, run this command:
+	5) To create the Nested Mirror, run this command:
+
 ``` powershell
 			i. New-Volume -FriendlyName Demo -StoragePoolFriendlyName SDN* -FileSystem CSVFS_ReFS -StorageTierFriendlyNames $storagetier.FriendlyName -StorageTierSizes 100gb -Verbose
 ```
@@ -65,10 +76,13 @@ Open up PowerShell on the Node in admin Center you can do this in one of 2 ways.
 	
 To enable Deduplication on our Volumes, we will need to install the feature on both nodes in the cluster. In the Server Manager on one of the nodes, select the Roles & Features extension in Admin Center. 
 	
-		1) Find the feature named Data Duplication under the File and Storage Services section.
-		2) Select Install and wait for that to complete. No reboot is necessary.
-		3) Repeat these steps on the other node in the cluster
-		4) Optionally instead run the following command in PowerShell:
+	1) Find the feature named Data Duplication under the File and Storage Services section.
+		
+	2) Select Install and wait for that to complete. No reboot is necessary.
+	
+	3) Repeat these steps on the other node in the cluster
+	
+	4) Optionally instead run the following command in PowerShell:
 			i. Install-WindowsFeature -Name FS-Data-Deduplication 
 	
 
