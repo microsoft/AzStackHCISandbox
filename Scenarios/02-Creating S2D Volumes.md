@@ -14,8 +14,8 @@ Navigate to one of the cluster nodes, you can do this in one of 2 ways.
 Creating Volumes
 Now we are ready to create some volumes in Admin Center. First we will create a Two-Way Mirrored volume, directly in Admin Center, then because we are running a 2 node cluster, we will want to build a Nested-Resiliancy Volume in both a Mirrored and Parity configuration, which we will do in PowerShell. Lastly we will want to turn on Data-Deduplication for these nodes.
 
-Lets start in Cluster Manager, start by selecting Volumes.
-	
+#### Lets start in Cluster Manager, start by selecting Volumes.
+
 	1) Select Inventory
    
 	2) Select the Create button.
@@ -28,7 +28,7 @@ Lets start in Cluster Manager, start by selecting Volumes.
 
 	4) Click Create
 	
-	![alt text](media/Screenshots/02-res/02-res-01-01.png "Create Volume Wizard-WAC")
+	![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/4f9095cf5d3e27da33b82be89077d1aca8875e53/Scenarios/Media/Screenshots/02-res/02-res-01-01.png "Create Volume Wizard-WAC")
 	
 	Notice the size of the footprint is dynamic, as you choose a larger size, the footprint shows that. In the case of a two way mirror, the 100GB volume, uses 200Gb of space on the Storage Pool.
 	
@@ -39,7 +39,7 @@ Lets start in Cluster Manager, start by selecting Volumes.
 		• Nested two-way mirror. Within each server, local resiliency is provided by two-way mirroring, and then further resiliency is provided by two-way mirroring between the two servers. It's essentially a four-way mirror, with two copies in each server. Nested two-way mirroring provides uncompromising performance: writes go to all copies, and reads come from any copy.
 		• Nested mirror-accelerated parity. Combine nested two-way mirroring, from above, with nested parity. Within each server, local resiliency for most data is provided by single bitwise parity arithmetic, except new recent writes which use two-way mirroring. Then, further resiliency for all data is provided by two-way mirroring between the servers. For more information about how mirror-accelerated parity works, see Mirror-accelerated parity.
 		
-	
+	![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/4f9095cf5d3e27da33b82be89077d1aca8875e53/Scenarios/Media/Screenshots/02-res/02-res-0202.png "Two-Way Mirror Explination")
 	
 	Open up PowerShell on the Node in admin Center you can do this in one of 2 ways.
 		1) Switch Admin Center over to Server Manager and select one of the ASZHost nodes. 
@@ -65,6 +65,8 @@ Lets start in Cluster Manager, start by selecting Volumes.
 		4) Optionally instead run the following command in PowerShell:
 			i. Install-WindowsFeature -Name FS-Data-Deduplication 
 	
+	![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/4f9095cf5d3e27da33b82be89077d1aca8875e53/Scenarios/Media/Screenshots/02-res/02-res-0303.png "Install Data Dedup WAC")
+	
 	
 	Now we can enable deduplication features on our volumes. Navigate back to the Cluster Manager for your HCI cluster, and go to Volumes-Inventory.
 		1) Select one of the volumes, and click the hyperlink.
@@ -72,6 +74,8 @@ Lets start in Cluster Manager, start by selecting Volumes.
 		3) In the Deduplication Mode change the setting to Hyper-V, but you can visit this link, to see the options fully explained.
 		4) Enable Deduplication
 		5) After some time, all duplicated files will be removed and consolidated down to save you space, and you will see that savings grow as we load more virtual machines on to this Cluster Shared Volume, for now we don’t expect any savings.
+	
+	![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/4f9095cf5d3e27da33b82be89077d1aca8875e53/Scenarios/Media/Screenshots/02-res/02-res-0404.png "Data DeDup Confirm-WAC")
 	
 	
 		
