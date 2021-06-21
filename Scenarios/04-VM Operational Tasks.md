@@ -22,7 +22,7 @@ In this exercise you need to perform Live Migrations on your Virtual Machines to
 
 4) Select a VM and Storage Migration, with a destination type of  Failover Cluster. You can then choose to select the Member Server (Destination) node that you would like, or allow the cluster to automatically select the node with the most resources available to it. 
 
-![alt text](media/Screenshots/04-res/04-0101.png "Move Screen for Live Migration")
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/76a96f0ff3aa70c0f6ea65ff2c0826541984af68/Scenarios/Media/Screenshots/04-res/04-0101.png "Move Screen for Live Migration")
 
 ### Exercise 02: Storage Migration
 
@@ -38,10 +38,10 @@ In this exercise we need to move our Virtual Machines to another Cluster Shared 
 
 4) Select a Storage Migration and for the Destination, keep the default of; "Move all the VM's files to the same path," then select the path for the cluster shared volume you want to move the VM to. 
 
-![alt text](media/Screenshots/04-res/04-0202.png "Move Screen for Storage Migration")
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/76a96f0ff3aa70c0f6ea65ff2c0826541984af68/Scenarios/Media/Screenshots/04-res/04-0202.png "Move Screen for Storage Migration")
 
-5) Select the Move button in the Wizard, in the bottom right corner and monitor the job in the Notifications of Windows Admin Center.
-6) You can achieve the same result in powershell, using the following commands:
+1) Select the Move button in the Wizard, in the bottom right corner and monitor the job in the Notifications of Windows Admin Center.
+2) You can achieve the same result in powershell, using the following commands:
 
 ```Powershell
 Get-VM -Name TenantVM2 -ComputerName AZSHOST2 | Move-VMStorage -DestinationStoragePath '\\azshost2\c$\ClusterStorage\Demo\VMs' 
@@ -57,11 +57,11 @@ In this exercise we will be re-sizing a Cluster Shared Volume, this is a very co
 
 3) Select the Expand button, then fill in the desired size, notice the tool is dynamic and updates you on the estimated additional footprint needed, the total storage available and the new footprint total. 
 
-![alt text](media/Screenshots/04-res/04-0303.png "Expand Volume Screen-WAC")
+![alt text](https://github.com/microsoft/AzStackHCISandbox/blob/76a96f0ff3aa70c0f6ea65ff2c0826541984af68/Scenarios/Media/Screenshots/04-res/04-0303.png  "Expand Volume Screen-WAC")
 
-4) Select Expand and Monitor the Notifications in Admin Center to ensure the job completed.
+1) Select Expand and Monitor the Notifications in Admin Center to ensure the job completed.
    
-5) To complete the same task in PowerShell, use the following command:
+2) To complete the same task in PowerShell, use the following command:
 
 ##### If the disk is **NOT** using Storage Tiers:
 
