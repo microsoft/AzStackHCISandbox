@@ -22,6 +22,8 @@ You will NEED to supply your own Parameters file, which is located in this repos
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmgodfre3%2FAzSHCI-AZNested%2Fmain%2Fjson%2Fazuredeploy.json)
 
+[![AzStackHCISandbox-Getting Started](https://res.cloudinary.com/marcomontalbano/image/upload/v1624560307/video_to_markdown/images/youtube--nmQ12Ma1pD4-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/nmQ12Ma1pD4 "AzStackHCISandbox-Getting Started")
+
 First step, you will want to click "Edit Parameters"
 ![](media/Custom%20Param%20Files-part%201.jpg)
 
