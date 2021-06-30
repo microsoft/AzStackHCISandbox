@@ -1,5 +1,5 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
             "networkInterfaceName": {
@@ -8,7 +8,7 @@
         },
         "networkSecurityGroupName": {
             "type": "string",
-            "defaultValue": "ASHCIHost001-nsg"
+            "defaultValue": "ashcihost001-nsg"
         },
         "networkSecurityGroupRules": {
             "type": "array"
@@ -31,7 +31,7 @@
 
         "publicIpAddressName": {
             "type": "string",
-            "defaultValue": "ASHCIHost001-Publicip"
+            "defaultValue": "ashcihost001-Publicip"
         },
         "publicIpAddressType": {
             "type": "string",
@@ -43,11 +43,11 @@
         },
         "virtualMachineName": {
             "type": "string",
-            "defaultValue": "ASHCIHost001"
+            "defaultValue": "ashcihost001"
         },
         "virtualMachineComputerName": {
             "type": "string",
-            "defaultValue": "ASHCIHost001"
+            "defaultValue": "ashcihost001"
         },
         
         "osDiskType": {
