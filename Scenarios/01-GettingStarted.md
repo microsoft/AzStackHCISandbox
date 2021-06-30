@@ -43,7 +43,7 @@ In the Admin Center windows, click the settings icon in the top-right.
 	SDN Public IP Addresses
 	SDN Route Tables
 	
-	3) Once the extensions are installed, click "Windows Admin Center" in the top right.
+	3) Once the extensions are installed, click "Windows Admin Center" in the top left.
 	4) In the drop down menu, labeled "All Connections" switch the menu to "Cluster Manager"
 	5) Now select your cluster hyperlink; AzStackCluster.Contoso.com to manage the HCI Cluster.
 
