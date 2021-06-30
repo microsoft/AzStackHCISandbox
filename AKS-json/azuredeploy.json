@@ -4,11 +4,11 @@
     "parameters": {
             "networkInterfaceName": {
             "type": "string",
-            "defaultValue": "ashcihost001-Nic1"
+            "defaultValue": "ashcihost002-Nic1"
         },
         "networkSecurityGroupName": {
             "type": "string",
-            "defaultValue": "ASHCIHost001-nsg"
+            "defaultValue": "ashcihost002-nsg"
         },
         "networkSecurityGroupRules": {
             "type": "array"
@@ -31,7 +31,7 @@
 
         "publicIpAddressName": {
             "type": "string",
-            "defaultValue": "ASHCIHost001-Publicip"
+            "defaultValue": "ashcihost002-Publicip"
         },
         "publicIpAddressType": {
             "type": "string",
@@ -43,11 +43,11 @@
         },
         "virtualMachineName": {
             "type": "string",
-            "defaultValue": "ASHCIHost001"
+            "defaultValue": "ashcihost002"
         },
         "virtualMachineComputerName": {
             "type": "string",
-            "defaultValue": "ASHCIHost001"
+            "defaultValue": "ashcihost002"
         },
         
         "osDiskType": {
@@ -290,7 +290,7 @@
     },
     
     "variables": {
-        "dscUri": "https://github.com/mgodfre3/AzSHCI-AZNested/blob/main/DSC/ashcihost.zip?raw=true",
+        "dscUri": "https://github.com/microsoft/AzStackHCISandbox/blob/main/AKS-DSC/ashcihost.zip?raw=true",
         "artifactsLocation": "https://github.com/mgodfre3/AzSHCI-AZNested/blob/main/",
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",

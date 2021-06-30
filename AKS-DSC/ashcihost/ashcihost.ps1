@@ -5,7 +5,7 @@ Configuration ASHCIHost {
     [System.Management.Automation.PSCredential]$Admincreds,
     [String]$targetDrive = "V",
     [String]$targetVMPath = "$targetDrive" + ":\VMs",
-    [String]$dsc_source="https://github.com/microsoft/AzStackHCISandbox/blob/main/Sandbox/Sandbox.zip",
+    [String]$dsc_source="https://github.com/microsoft/AzStackHCISandbox/blob/main/AKS-Sandbox/Sandbox.zip",
     #[Parameter(Mandatory)]
     [string]$customRdpPort,
     [String]$ashci_uri="https://aka.ms/AAbbhkn",
