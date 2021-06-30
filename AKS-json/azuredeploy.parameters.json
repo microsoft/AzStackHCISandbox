@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "networkInterfaceName": {
-            "value": "ashcihost001-Nic1"
+            "value": "ashcihost002-Nic1"
         },
         "networkSecurityGroupName": {
-            "value": "ASHCIHost001-nsg"
+            "value": "ashcihost002-nsg"
         },
         "networkSecurityGroupRules": {
             "value": [
@@ -47,7 +47,7 @@
             ]
         },
         "publicIpAddressName": {
-            "value": "ASHCIHost001-Publicip"
+            "value": "ashcihost002-Publicip"
         },
         "publicIpAddressType": {
             "value": "Dynamic"
@@ -56,10 +56,10 @@
             "value": "Basic"
         },
         "virtualMachineName": {
-            "value": "ASHCIHost001"
+            "value": "ashcihost002"
         },
         "virtualMachineComputerName": {
-            "value": "ASHCIHost001"
+            "value": "ashcihost002"
         },
         
         "osDiskType": {
@@ -73,7 +73,7 @@
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
-                    "name": "ASHCIHost001_DataDisk_0",
+                    "name": "ashcihost002_DataDisk_0",
                     "storageAccountType": null,
                     "diskSizeGB": null,
                     "diskEncryptionSet": null
@@ -84,7 +84,7 @@
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
-                    "name": "ASHCIHost001_DataDisk_1",
+                    "name": "ashcihost002_DataDisk_1",
                     "storageAccountType": null,
                     "diskSizeGB": null,
                     "diskEncryptionSet": null
@@ -95,7 +95,7 @@
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
-                    "name": "ASHCIHost001_DataDisk_2",
+                    "name": "ashcihost002_DataDisk_2",
                     "storageAccountType": null,
                     "diskSizeGB": null,
                     "diskEncryptionSet": null
@@ -106,7 +106,7 @@
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
-                    "name": "ASHCIHost001_DataDisk_3",
+                    "name": "ashcihost002_DataDisk_3",
                     "storageAccountType": null,
                     "diskSizeGB": null,
                     "diskEncryptionSet": null
@@ -117,7 +117,7 @@
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
-                    "name": "ASHCIHost001_DataDisk_4",
+                    "name": "ashcihost002_DataDisk_4",
                     "storageAccountType": null,
                     "diskSizeGB": null,
                     "diskEncryptionSet": null
@@ -128,7 +128,7 @@
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
-                    "name": "ASHCIHost001_DataDisk_5",
+                    "name": "ashcihost002_DataDisk_5",
                     "storageAccountType": null,
                     "diskSizeGB": null,
                     "diskEncryptionSet": null
@@ -139,7 +139,7 @@
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
-                    "name": "ASHCIHost001_DataDisk_6",
+                    "name": "ashcihost002_DataDisk_6",
                     "storageAccountType": null,
                     "diskSizeGB": null,
                     "diskEncryptionSet": null
@@ -150,7 +150,7 @@
                     "caching": "ReadOnly",
                     "writeAcceleratorEnabled": false,
                     "id": null,
-                    "name": "ASHCIHost001_DataDisk_7",
+                    "name": "ashcihost002_DataDisk_7",
                     "storageAccountType": null,
                     "diskSizeGB": null,
                     "diskEncryptionSet": null
@@ -160,7 +160,7 @@
         "dataDiskResources": {
             "value": [
                 {
-                    "name": "ASHCIHost001_DataDisk_0",
+                    "name": "ashcihost002_DataDisk_0",
                     "sku": "StandardSSD_LRS",
                     "properties": {
                         "diskSizeGB": 256,
@@ -170,7 +170,7 @@
                     }
                 },
                 {
-                    "name": "ASHCIHost001_DataDisk_1",
+                    "name": "ashcihost002_DataDisk_1",
                     "sku": "StandardSSD_LRS",
                     "properties": {
                         "diskSizeGB": 256,
@@ -180,7 +180,7 @@
                     }
                 },
                 {
-                    "name": "ASHCIHost001_DataDisk_2",
+                    "name": "ashcihost002_DataDisk_2",
                     "sku": "StandardSSD_LRS",
                     "properties": {
                         "diskSizeGB": 256,
@@ -190,7 +190,7 @@
                     }
                 },
                 {
-                    "name": "ASHCIHost001_DataDisk_3",
+                    "name": "ashcihost002_DataDisk_3",
                     "sku": "StandardSSD_LRS",
                     "properties": {
                         "diskSizeGB": 256,
@@ -200,7 +200,7 @@
                     }
                 },
                 {
-                    "name": "ASHCIHost001_DataDisk_4",
+                    "name": "ashcihost002_DataDisk_4",
                     "sku": "StandardSSD_LRS",
                     "properties": {
                         "diskSizeGB": 256,
@@ -210,7 +210,7 @@
                     }
                 },
                 {
-                    "name": "ASHCIHost001_DataDisk_5",
+                    "name": "ashcihost002_DataDisk_5",
                     "sku": "StandardSSD_LRS",
                     "properties": {
                         "diskSizeGB": 256,
@@ -220,7 +220,7 @@
                     }
                 },
                 {
-                    "name": "ASHCIHost001_DataDisk_6",
+                    "name": "ashcihost002_DataDisk_6",
                     "sku": "StandardSSD_LRS",
                     "properties": {
                         "diskSizeGB": 256,
@@ -230,7 +230,7 @@
                     }
                 },
                 {
-                    "name": "ASHCIHost001_DataDisk_7",
+                    "name": "ashcihost002_DataDisk_7",
                     "sku": "StandardSSD_LRS",
                     "properties": {
                         "diskSizeGB": 256,
