@@ -244,6 +244,11 @@ The following are a list of settings that are configurable and have been fully t
 | Setting                              | Type   | Description                                                                                                                                                                                                     | Example                     |
 
 
+## AKS Deployment
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FAzStackHCISandbox%2Fmain%2FAKS-json%2Fazuredeploy.json)
+
+
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
