@@ -10,7 +10,7 @@
     MultipleHyperVHostExternalSwitchName = "SDN-Switch"                          # Name of the External Hyper-V VM Switch identical on all hosts.
 
     # VHDX Paths 
-    guiVHDXPath                          = "C:\AzHCIVHDs\Server2019.vhdx"               # This value controls the location of the GUI VHDX.              
+    guiVHDXPath                          = "C:\AzHCIVHDs\GUI.vhdx"               # This value controls the location of the GUI VHDX.              
     azsHCIVHDXPath                       = "C:\AzHCIVHDs\ASHCI.vhdx"          # This value controls the location of the Azure Stack HCI VHDX. 
     
 
