@@ -8,7 +8,7 @@
     .\New-AzSHCISandbox.ps1
     Reads in the configuration from AzSHCISandbox-Config.psd1 that contains a hash table 
     of settings data that will in same root as New-SDNSandbox.ps1
-    cd c
+  
 .EXAMPLE
     .\New-AzSHCISandbox.ps1 -Delete $true
      Removes the VMs and VHDs of the Azure Stack HCI Sandbox installation. (Note: Some files will
@@ -564,9 +564,15 @@ function Add-Files {
         $AzSHOSTIP = $SDNConfig.($AzSHOSTComputerName + "IP")
         $SDNAdminPassword = $SDNConfig.SDNAdminPassword
         $SDNDomainFQDN = $SDNConfig.SDNDomainFQDN
-        $SDNLABDNS = $SDNConfig.SDNLABDNS
-        $SDNLabRoute = $SDNConfig.SDNLABRoute    
-        $ProductKey = $SDNConfig.GUIProductKey    
+        $SDNLABDNS = $SDNConfig.SDNLABDNS    
+        $SDNLabRoute = $SDNConfig.SDNLABRoute         
+        $ProductKey = $SDNConfig.GUIProductKey
+            
+
+        # Only inject product key if host is AzSMGMT
+        $azsmgmtProdKey = $null
+        if ($AzSHOST.AzSHOST -eq "AzSMGMT") { $azsmgmtProdKey = "<ProductKey>$ProductKey</ProductKey>" }
+                    
  
         $UnattendXML = @"
 <?xml version="1.0" encoding="utf-8"?>
@@ -579,7 +585,7 @@ function Add-Files {
 </component>
 <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <ComputerName>$AzSHOSTComputerName</ComputerName>
-<ProductKey>$ProductKey</ProductKey>
+$azsmgmtProdKey
 </component>
 <component name="Microsoft-Windows-TerminalServices-LocalSessionManager" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <fDenyTSConnections>false</fDenyTSConnections>
@@ -609,7 +615,7 @@ function Add-Files {
 <Identifier>1</Identifier>
 <NextHopAddress>$SDNLabRoute</NextHopAddress>
 <Prefix>0.0.0.0/0</Prefix>
-<Metric>20</Metric>
+<Metric>100</Metric>
 </Route>
 </Routes>
 </Interface>
@@ -798,7 +804,7 @@ function New-NATSwitch {
     
     $natSwitchTarget = $VMPlacement | Where-Object { $_.AzSHOST -eq "AzSMGMT" }
     
-    Add-VMNetworkAdapter -VMName $natSwitchTarget.AzSHOST -ComputerName $natSwitchTarget.VMHost
+    Add-VMNetworkAdapter -VMName $natSwitchTarget.AzSHOST -ComputerName $natSwitchTarget.VMHost -DeviceNaming On 
 
     $params = @{
 
@@ -806,16 +812,20 @@ function New-NATSwitch {
         ComputerName = $natSwitchTarget.VMHost
     }
 
-    Get-VMNetworkAdapter @params | Where-Object { $_.Name -match "Network" } | Connect-VMNetworkAdapter -SwitchName $SDNConfig.natExternalVMSwitchName
+    Get-VMNetworkAdapter @params | Where-Object { $_.Name -match "Network" } | Connect-VMNetworkAdapter -SwitchName $SDNConfig.natHostVMSwitchName
     Get-VMNetworkAdapter @params | Where-Object { $_.Name -match "Network" } | Rename-VMNetworkAdapter -NewName "NAT"
     
     Get-VM @params | Get-VMNetworkAdapter -Name NAT | Set-VMNetworkAdapter -MacAddressSpoofing On
     
+    <# Should not need this anymore
+
     if ($SDNConfig.natVLANID) {
     
         Get-VM @params | Get-VMNetworkAdapter -Name NAT | Set-VMNetworkAdapterVlan -Access -VlanId $natVLANID | Out-Null
     
     }
+
+    #>
     
     #Create PROVIDER NIC in order for NAT to work from SLB/MUX and RAS Gateways
 
@@ -1031,8 +1041,10 @@ function Set-AzSMGMT {
 
     $azsmgmtip = $SDNConfig.AzSMGMTIP.Replace('/24', '')
 
+    # Sleep to get around race condition on fast systems
+    Start-Sleep -Seconds 10
 
-    Invoke-Command -ComputerName $azsmgmtip -Credential $localCred  -ScriptBlock {
+    Invoke-Command -ComputerName azsmgmt -Credential $localCred  -ScriptBlock {
 
         # Creds
 
@@ -1055,10 +1067,14 @@ function Set-AzSMGMT {
         $WarningPreference = "SilentlyContinue"
 
         # Disable Fabric2 Network Adapter
-        Write-Verbose "Disabling Fabric2 Adapter"
-        $VerbosePreference = "SilentlyContinue"
-        Get-Netadapter FABRIC2 | Disable-NetAdapter -Confirm:$false | Out-Null
+        
+        $fabTwo = $null
+        while ($fabTwo -ne 'Disabled') {
+            Write-Verbose "Disabling Fabric2 Adapter"
+            Get-Netadapter FABRIC2 | Disable-NetAdapter -Confirm:$false | Out-Null
+            $fabTwo = (Get-Netadapter -Name FABRIC2).Status 
 
+        }
         # Enable WinRM on AzSMGMT
         $VerbosePreference = "Continue"
         Write-Verbose "Enabling PSRemoting on $env:COMPUTERNAME"
@@ -1117,9 +1133,11 @@ function Set-AzSMGMT {
                 Rename-NetAdapter -name $NIC.name -newname "PROVIDER" | Out-Null
                 New-NetIPAddress -InterfaceAlias "PROVIDER" –IPAddress $provIP -PrefixLength $provpfx | Out-Null
 
+                <#
                 $index = (Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.netconnectionid -eq "PROVIDER" }).InterfaceIndex
                 $NetInterface = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object { $_.InterfaceIndex -eq $index }     
                 $NetInterface.SetGateways($tranpfx) | Out-Null
+                #>
 
                 $VerbosePreference = "Continue"
                 Write-Verbose "Configuring VLAN200 NIC on $env:COMPUTERNAME"
@@ -1129,21 +1147,46 @@ function Set-AzSMGMT {
                 Rename-NetAdapter -name $NIC.name -newname "VLAN200" | Out-Null
                 New-NetIPAddress -InterfaceAlias "VLAN200" –IPAddress $vlan200IP -PrefixLength $vlanpfx | Out-Null
 
+                <#
                 $index = (Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.netconnectionid -eq "VLAN200" }).InterfaceIndex
                 $NetInterface = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object { $_.InterfaceIndex -eq $index }     
                 $NetInterface.SetGateways($vlanGW) | Out-Null
+                #>
 
                 $VerbosePreference = "Continue"
                 Write-Verbose "Configuring simulatedInternet NIC on $env:COMPUTERNAME"
                 $VerbosePreference = "SilentlyContinue"
 
+
                 $NIC = Get-NetAdapterAdvancedProperty -RegistryKeyWord "HyperVNetworkAdapterName" | Where-Object { $_.RegistryValue -eq "simInternet" }
                 Rename-NetAdapter -name $NIC.name -newname "simInternet" | Out-Null
                 New-NetIPAddress -InterfaceAlias "simInternet" –IPAddress $simInternetIP -PrefixLength $simInternetPFX | Out-Null
 
+                <#
                 $index = (Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.netconnectionid -eq "simInternet" }).InterfaceIndex
                 $NetInterface = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object { $_.InterfaceIndex -eq $index }     
                 $NetInterface.SetGateways($simInternetGW) | Out-Null
+                #>
+
+                Write-Verbose "Making NAT Work"
+
+
+                $NIC = Get-NetAdapterAdvancedProperty -RegistryKeyWord "HyperVNetworkAdapterName" `
+                | Where-Object { $_.RegistryValue -eq "Network Adapter" -or $_.RegistryValue -eq "NAT" }
+
+                Rename-NetAdapter -name $NIC.name -newname "Internet" | Out-Null 
+
+                $internetIP = $SDNConfig.natHostSubnet.Replace("0/24", "5")
+                $internetGW = $SDNConfig.natHostSubnet.Replace("0/24", "1")
+
+                Start-Sleep -Seconds 30
+
+                $internetIndex = (Get-NetAdapter | Where-Object { $_.Name -eq "Internet" }).ifIndex
+
+                Start-Sleep -Seconds 30
+
+                New-NetIPAddress -IPAddress $internetIP -PrefixLength 24 -InterfaceIndex $internetIndex -DefaultGateway $internetGW -AddressFamily IPv4 | Out-Null
+                Set-DnsClientServerAddress -InterfaceIndex $internetIndex -ServerAddresses ($SDNConfig.natDNS) | Out-Null
 
                 #Enable Large MTU
 
@@ -1159,6 +1202,11 @@ function Set-AzSMGMT {
                 #Provision Public and Private VIP Route
  
                 New-NetRoute -DestinationPrefix $SDNConfig.PublicVIPSubnet -NextHop $provGW -InterfaceAlias PROVIDER | Out-Null
+
+                # Remove Gateway from Fabric NIC
+                Write-Verbose "Removing Gateway from Fabric NIC" 
+                $index = (Get-WmiObject Win32_NetworkAdapter | Where-Object { $_.netconnectionid -match "vSwitch-Fabric" }).InterfaceIndex
+                Remove-NetRoute -InterfaceIndex $index -DestinationPrefix "0.0.0.0/0" -Confirm:$false
 
             }
 
@@ -2180,11 +2228,17 @@ function New-AdminCenterVM {
         Add-VMNetworkAdapter -VMName $VMName -Name "Fabric" -SwitchName "vSwitch-Fabric" -DeviceNaming On
 
         Write-Verbose "Setting $VMName's VM Configuration"
-        Set-VMProcessor -VMName $VMname -Count 2
+        Set-VMProcessor -VMName $VMname -Count 4
         set-vm -Name $VMName  -AutomaticStopAction TurnOff
 
         Write-Verbose "Starting $VMName VM."
         Start-VM -Name $VMName
+
+        # Refresh Domain Cred
+
+        $domainCred = new-object -typename System.Management.Automation.PSCredential `
+            -argumentlist (($SDNConfig.SDNDomainFQDN.Split(".")[0]) + "\administrator"), `
+        (ConvertTo-SecureString $SDNConfig.SDNAdminPassword -AsPlainText -Force)
 
         # Wait until the VM is restarted
 
@@ -2493,20 +2547,29 @@ CertificateTemplate= WebServer
             # Install Chromium
 
             Write-Verbose 'Installing Chromium browser in admincenter vm'
-            $expression = "choco install chromium -y"
+            $expression = "choco install googlechrome -y"
             Invoke-Expression $expression
-            $ErrorActionPreference = "Stop"               
+            $ErrorActionPreference = "Stop" 
+            
+            # Install Set Default Browser
+            Write-Verbose 'Installing setdefaultbrowser in admincenter vm'
+            $expression = "choco install setdefaultbrowser -y"
+            Invoke-Expression $expression
+            $ErrorActionPreference = "Stop" 
+                          
        
             # Add Chromium to list of browsers
+            Write-Verbose 'Setting Default Broswer on admincenter vm'
+            $expression = "SetDefaultBrowser.exe Chrome"
+            Invoke-Expression $expression
 
-            $regKey = "HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\{0}\UserChoice"
-            $regKeyHttp = $regKey -f 'http'
-            $regKeyHttps = $regKey -f 'https'
 
-            Set-ItemProperty -Force -PassThru -Verbose $regKeyHttp  -name ProgId ChromiumHTM
-            Set-ItemProperty -Force -PassThru -Verbose $regKeyHttp  -name Hash Kh+mL2zZByo=
-            Set-ItemProperty -Force -PassThru -Verbose $regKeyHttps -name ProgId ChromiumHTM
-            Set-ItemProperty -Force -PassThru -Verbose $regKeyHttps -name Hash EWoUqQneOv4= 
+            # Add Scheduled task to set default browser at login
+
+            $stTrigger = New-ScheduledTaskTrigger -AtLogOn
+            $stTrigger.Delay = 'PT2M'
+            $stAction = New-ScheduledTaskAction -Execute "C:\ProgramData\chocolatey\bin\SetDefaultBrowser.exe" -Argument 'Chrome'
+            $schedTask = Register-ScheduledTask -Action $stAction -Trigger $stTrigger -TaskName SetDefaultBrowser -Force
 
         } 
 
@@ -2587,7 +2650,7 @@ function New-HyperConvergedEnvironment {
 
                     }
 
-                    New-NetIPAddress @params
+                    New-NetIPAddress @params | Out-Null
 
                     # Set DNS
 
@@ -2877,7 +2940,6 @@ function Delete-AzSHCISandbox {
 
     }
 
-
     If ($SingleHostDelete -eq $true) {
         
         $RemoveSwitch = Get-VMSwitch | Where-Object { $_.Name -match $SDNConfig.InternalSwitch }
@@ -2890,6 +2952,18 @@ function Delete-AzSHCISandbox {
         }
 
     }
+
+    Write-Verbose "Deleting RDP links"
+
+    Remove-Item C:\Users\Public\Desktop\AdminCenter.lnk -Force -ErrorAction SilentlyContinue
+
+
+    Write-Verbose "Deleting NetNAT"
+    Get-NetNAT | Remove-NetNat -Confirm:$false
+
+    Write-Verbose "Deleting Internal Switches"
+    Get-VMSwitch | Where-Object { $_.SwitchType -eq "Internal" } | Remove-VMSwitch -Force -Confirm:$false
+
 
 }
 
@@ -2920,7 +2994,7 @@ function Add-WACtenants {
 
             $SDNConfig = Import-PowerShellDataFile -Path C:\SCRIPTS\AzSHCISandbox-Config.psd1
             $fqdn = $SDNConfig.SDNDomainFQDN
-            $SDNLabSystems = @("bgp-tor-router", "$($SDNConfig.DCName).$fqdn", "NC01.$fqdn", "MUX01.$fqdn", "GW01.$fqdn", "GW02.$fqdn", "AzSMGMT")
+            $SDNLabSystems = @("bgp-tor-router", "$($SDNConfig.DCName).$fqdn", "NC01.$fqdn", "MUX01.$fqdn", "GW01.$fqdn", "GW02.$fqdn")
             $VerbosePreference = "Continue"
             $domainCred = new-object -typename System.Management.Automation.PSCredential `
                 -argumentlist (($SDNConfig.SDNDomainFQDN.Split(".")[0]) + "\administrator"), `
@@ -2999,11 +3073,6 @@ $json
    
             }
         
-         
-            # Configure Single sign-on for all computers
-         
-            Get-ADComputer -Filter * | Set-ADComputer -PrincipalsAllowedToDelegateToAccount (Get-ADComputer AdminCenter)    
-
         }
 
     }
@@ -3075,7 +3144,7 @@ function New-SDNS2DCluster {
 
             New-StoragePool @params -PhysicalDisks (Get-PhysicalDisk | Where-Object { $_.CanPool -eq $true }) | Out-Null
 
-            Get-PhysicalDisk | Where-Object { $_.Size -lt 127GB } | Set-PhysicalDisk -MediaType SSD | Out-Null
+            Get-PhysicalDisk | Where-Object { $_.Size -lt 127GB } | Set-PhysicalDisk -MediaType HDD | Out-Null
 
             $params = @{
             
@@ -3084,11 +3153,11 @@ function New-SDNS2DCluster {
                 StoragePoolFriendlyName = 'SDN_S2D_Storage'
                 ResiliencySettingName   = 'Mirror'
                 PhysicalDiskRedundancy  = 1
-                SizeBytes= '250gb' 
+                
                 
             }
 
-            New-Volume @params   | Out-Null
+            New-Volume @params -UseMaximumSize  | Out-Null
 
             # Set Virtual Environment Optimizations
 
@@ -3132,17 +3201,79 @@ function test-internetConnect {
 
 }
 
+function set-hostnat {
+
+    param (
+
+        $SDNConfig
+    )
+
+    $VerbosePreference = "Continue" 
+
+    $switchExist = Get-NetAdapter | Where-Object { $_.Name -match $SDNConfig.natHostVMSwitchName }
+
+    if (!$switchExist) {
+
+        Write-Verbose "Creating Internal NAT Switch: $($SDNConfig.natHostVMSwitchName)"
+        # Create Internal VM Switch for NAT
+        New-VMSwitch -Name $SDNConfig.natHostVMSwitchName -SwitchType Internal | Out-Null
+
+        Write-Verbose "Applying IP Address to NAT Switch: $($SDNConfig.natHostVMSwitchName)"
+        # Apply IP Address to new Internal VM Switch
+        $intIdx = (Get-NetAdapter | Where-Object { $_.Name -match $SDNConfig.natHostVMSwitchName }).ifIndex
+        $natIP = $SDNConfig.natHostSubnet.Replace("0/24", "1")
+
+        New-NetIPAddress -IPAddress $natIP -PrefixLength 24 -InterfaceIndex $intIdx | Out-Null
+
+        # Create NetNAT
+
+        Write-Verbose "Creating new NETNAT"
+        New-NetNat -Name $SDNConfig.natHostVMSwitchName  -InternalIPInterfaceAddressPrefix $SDNConfig.natHostSubnet | Out-Null
+
+    }
+
+}
+
+function enable-singleSignOn {
+
+    param (
+
+        $SDNConfig
+    )
+
+    $domainCred = new-object -typename System.Management.Automation.PSCredential `
+        -argumentlist (($SDNConfig.SDNDomainFQDN.Split(".")[0]) + "\administrator"), `
+    (ConvertTo-SecureString $SDNConfig.SDNAdminPassword -AsPlainText -Force)
+
+    Invoke-Command -ComputerName ("$($SDNConfig.DCName).$($SDNConfig.SDNDomainFQDN)") -ScriptBlock {
+
+        Get-ADComputer -Filter * | Set-ADComputer -PrincipalsAllowedToDelegateToAccount (Get-ADComputer AdminCenter)
+
+
+    } -Credential $domainCred
+
+}
+
 #endregion
    
 #region Main
     
 $WarningPreference = "SilentlyContinue"
-$ErrorActionPreference = "Stop"    
+$ErrorActionPreference = "Stop" 
+
+#Get Start Time
+$starttime = Get-Date
+   
     
 # Import Configuration Module
 
 $SDNConfig = Import-PowerShellDataFile -Path $ConfigurationDataFile
 Copy-Item $ConfigurationDataFile -Destination .\Applications\SCRIPTS -Force
+
+# Set VM Host Memory
+$totalPhysicalMemory = (Get-CimInstance -ClassName 'Cim_PhysicalMemory' | Measure-Object -Property Capacity -Sum).Sum / 1GB
+$availablePhysicalMemory = (([math]::Round(((((Get-Counter -Counter '\Hyper-V Dynamic Memory Balancer(System Balancer)\Available Memory For Balancing' -ComputerName $env:COMPUTERNAME).CounterSamples.CookedValue) / 1024) - 18) / 2))) * 1073741824
+$SDNConfig.NestedVMMemoryinGB = $availablePhysicalMemory
 
 # Set-Credentials
 $localCred = new-object -typename System.Management.Automation.PSCredential `
@@ -3204,8 +3335,6 @@ $HostVMPath = $SDNConfig.HostVMPath
 $InternalSwitch = $SDNConfig.InternalSwitch
 $natDNS = $SDNConfig.natDNS
 $natSubnet = $SDNConfig.natSubnet
-$natExternalVMSwitchName = $SDNConfig.natExternalVMSwitchName
-$natVLANID = $SDNConfig.natVLANID
 $natConfigure = $SDNConfig.natConfigure   
 
 
@@ -3260,6 +3389,10 @@ if (!$SDNConfig.MultipleHyperVHosts) {
     }
 
     New-InternalSwitch @params
+
+    Write-Verbose "Creating NAT Switch"
+
+    set-hostnat -SDNConfig $SDNConfig
 
     $VMSwitch = $InternalSwitch
 
@@ -3611,7 +3744,7 @@ If ($SDNConfig.ProvisionNC) {
 
     $fqdn = $SDNConfig.SDNDomainFQDN
 
-    $SDNLabSystems = @("bgp-tor-router", "$($SDNConfig.DCName).$fqdn", "NC01.$fqdn", "MUX01.$fqdn", "GW01.$fqdn", "GW02.$fqdn", "AzSMGMT")
+    $SDNLabSystems = @("bgp-tor-router", "$($SDNConfig.DCName).$fqdn", "NC01.$fqdn", "MUX01.$fqdn", "GW01.$fqdn", "GW02.$fqdn")
 
     # Add VMs for Domain Admin
 
@@ -3623,18 +3756,41 @@ If ($SDNConfig.ProvisionNC) {
 
     }
 
-    Add-WACtenants @params
+    #   Add-WACtenants @params
+
 
     # Add VMs for NC Admin
 
     $params.domainCred = $NCAdminCred
 
-    Add-WACtenants @params
+    #   Add-WACtenants @params
+
+    # Enable Single Sign On
+
+    Write-Verbose "Enabling Single Sign On in WAC"
+    enable-singleSignOn -SDNConfig $SDNConfig 
     
 }
 
 
+# Finally - Add RDP Link to Desktop
+
+Remove-Item C:\Users\Public\Desktop\AdminCenter.lnk -Force -ErrorAction SilentlyContinue
+$wshshell = New-Object -ComObject WScript.Shell
+$lnk = $wshshell.CreateShortcut("C:\Users\Public\Desktop\AdminCenter.lnk")
+$lnk.TargetPath = "%windir%\system32\mstsc.exe"
+$lnk.Arguments = "/v:AdminCenter"
+$lnk.Description = "AdminCenter link for Azure Stack HCI Sandbox."
+$lnk.Save()
+
+$endtime = Get-Date
+
+$timeSpan = New-TimeSpan -Start $starttime -End $endtime
+
+
 Write-Verbose "`nSuccessfully deployed the Azure Stack HCI Sandbox"
+
+Write-Host "Deployment time was $($timeSpan.Hours) hours and $($timeSpan.Minutes) minutes." -ForegroundColor Green
  
 $ErrorActionPreference = "Continue"
 $VerbosePreference = "SilentlyContinue"
