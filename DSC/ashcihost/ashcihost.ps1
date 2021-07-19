@@ -9,6 +9,7 @@ Configuration ASHCIHost {
     #[Parameter(Mandatory)]
     [string]$customRdpPort,
     [String]$ashci_uri="https://aka.ms/AAbbhkn",
+    [String]$ashci_21h2="https://aka.ms/AAd8dvp",
     [String]$server2019_uri="https://aka.ms/AAbclsv",
     [String]$wacUri = "https://aka.ms/wacdownload"
     )
@@ -79,7 +80,7 @@ Configuration ASHCIHost {
     }
    
     xRemoteFile "ASHCIVHD"{
-        uri=$ashci_uri
+        uri=$ashci_21h2
         DestinationPath="$env:SystemDrive\AzHCIVHDs\AZSHCI.vhdx"
         DependsOn="[File]ASHCIBuildScripts"
     }

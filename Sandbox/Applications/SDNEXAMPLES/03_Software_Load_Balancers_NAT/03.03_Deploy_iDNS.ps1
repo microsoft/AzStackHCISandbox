@@ -104,7 +104,7 @@ Invoke-RestMethod @params -UseBasicParsing -DisableKeepAlive | Out-Null
 
 # STEP03: Configure the DNS Proxy registry setting on the Hyper-V Hosts
 
-$AzSHOSTs = @("AzSHOST1", "AzSHOST2", "AzSHOST3")
+$AzSHOSTs = @("AzSHOST1", "AzSHOST2")
 
 foreach ($AzSHOST in $AzSHOSTs) {
 
