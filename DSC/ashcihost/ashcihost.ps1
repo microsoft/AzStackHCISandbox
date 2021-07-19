@@ -80,7 +80,7 @@ Configuration ASHCIHost {
     }
    
     xRemoteFile "ASHCIVHD"{
-        uri=$ashci_21h2
+        uri=$ashci_uri
         DestinationPath="$env:SystemDrive\AzHCIVHDs\AZSHCI.vhdx"
         DependsOn="[File]ASHCIBuildScripts"
     }
@@ -99,7 +99,7 @@ Configuration ASHCIHost {
     }
     xRemoteFile "WAC_Source"{
         uri=$wacURI
-        DestinationPath="$env:SystemDrive\AzHCI_Sandbox\AzSHCISandbox-main\Applications\Windows Admin Center\WindowsAdminCenter2009.msi"
+        DestinationPath="$env:SystemDrive\AzHCI_Sandbox\AzSHCISandbox-main\Applications\Windows Admin Center\WindowsAdminCenter.msi"
         DependsOn="[Archive]ASHCIBuildScripts"
     }
     cShortcut "BuildScript" {

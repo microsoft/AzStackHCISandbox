@@ -570,7 +570,7 @@ function Add-Files {
 
         # Only inject product key if host is AzSMGMT
         $azsmgmtProdKey = $null
-        if ($AzSHOST.AzSHOST -eq "AzSMGMT") { $azsmgmtProdKey = "<ProductKey>$ProductKey</ProductKey>" }
+        if ($AzSHOST.AzSHOST -eq "AzSMGMT") { $azsmgmtProdKey = "<ProductKey>$ProductKey</ProductKey>"}
             
  
         $UnattendXML = @"
@@ -3134,17 +3134,20 @@ function New-SDNS2DCluster {
 
             # Invoke Command to enable S2D on AzStackCluster        
             
-            Enable-ClusterS2D -Confirm:$false -Verbose
+              Enable-ClusterS2D -Confirm:$false -Verbose
 
             # Wait for Cluster Performance History Volume to be Created
             while (!$PerfHistory) {
 
-                Write-Verbose "Waiting for Cluster Performance History volume to come online."
-                Start-Sleep -Seconds 10            
-                $PerfHistory = Get-ClusterResource | Where-Object { $_.Name -match 'ClusterPerformanceHistory' }
-                if ($PerfHistory) { Write-Verbose "Cluster Perfomance History volume online." }            
+            Write-Verbose "Waiting for Cluster Performance History volume to come online."
+            Start-Sleep -Seconds 10            
+            $PerfHistory = Get-ClusterResource | Where-Object {$_.Name -match 'ClusterPerformanceHistory'}
+            if ($PerfHistory) {Write-Verbose "Cluster Perfomance History volume online." }            
 
             }
+
+
+            Write-Verbose "Setting Physical Disk Media Type"
 
             Get-PhysicalDisk | Where-Object { $_.Size -lt 127GB } | Set-PhysicalDisk -MediaType HDD | Out-Null
 
@@ -3155,24 +3158,31 @@ function New-SDNS2DCluster {
                 StoragePoolFriendlyName = 'S2D on AzStackCluster'
                 ResiliencySettingName   = 'Mirror'
                 PhysicalDiskRedundancy  = 1
-                AllocationUnitSize      = 64KB
+                AllocationUnitSize = 64KB
                 
             }
 
+
+            Write-Verbose "Creating Physical Disk"
+
+            Start-Sleep -Seconds 60
             New-Volume @params -UseMaximumSize  | Out-Null
 
             # Set Virtual Environment Optimizations
+
+            Write-Verbose "Setting Virtual Environment Optimizations"
+
+
+             
 
             $VerbosePreference = "SilentlyContinue"
             Get-storagesubsystem clus* | set-storagehealthsetting -name “System.Storage.PhysicalDisk.AutoReplace.Enabled” -value “False”
             Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\spaceport\Parameters -Name HwTimeout -Value 0x00007530
             $VerbosePreference = "Continue"
            
+                    # Rename Storage Network Adapters
 
-        } | Out-Null
-
-
-        # Rename Storage Network Adapters
+        Write-Verbose "Renaming Storage Network Adapters"
 
         (Get-Cluster -Name azstackcluster | Get-ClusterNetwork | Where-Object { $_.Address -eq ($sdnconfig.storageAsubnet.Replace('/24', '')) }).Name = 'StorageA'
         (Get-Cluster -Name azstackcluster | Get-ClusterNetwork | Where-Object { $_.Address -eq ($sdnconfig.storageBsubnet.Replace('/24', '')) }).Name = 'StorageB'
@@ -3181,9 +3191,12 @@ function New-SDNS2DCluster {
 
         # Set Allowed Networks for Live Migration
 
+        Write-Verbose "Setting allowed networks for Live Migration"
+
         Get-ClusterResourceType -Name "Virtual Machine" -Cluster AzStackCluster | Set-ClusterParameter -Cluster AzStackCluster -Name MigrationExcludeNetworks `
             -Value ([String]::Join(";", (Get-ClusterNetwork -Cluster AzStackCluster | Where-Object { $_.Name -notmatch "Storage" }).ID))
 
+        } | Out-Null
 
     } 
 
