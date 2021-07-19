@@ -80,7 +80,7 @@ Configuration ASHCIHost {
     }
    
     xRemoteFile "ASHCIVHD"{
-        uri=$ashci_uri
+        uri=$ashci_21h2
         DestinationPath="$env:SystemDrive\AzHCIVHDs\AZSHCI.vhdx"
         DependsOn="[File]ASHCIBuildScripts"
     }
