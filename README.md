@@ -6,9 +6,9 @@
 ![](media/microsoft-azure-stack-HCI-logo.png)
 **Welcome to the easiest deployment of Azure Stack HCI, full stack of your life!** With this ARM Template you will be able to deploy a working, nested Azure Stack HCI cluster with Hyper-V, Storage Spaces Direct and Software Defined Networking, all manged by Windows Admin Center. It's so simple!
 
-**Want a deeper understanding of Deploying Azure Stack HCI, and ready to learn quickly about the components? 
-<iframe width="760px" height="500px" src="https://sway.office.com/s/f4UzIZqrmGgMqTfZ/embed" frameborder="0" marginheight="0" marginwidth="0" max-width="100%" sandbox="allow-forms allow-modals allow-orientation-lock allow-popups allow-same-origin allow-scripts" scrolling="no" style="border: none; max-width: 100%; max-height: 100vh" allowfullscreen mozallowfullscreen msallowfullscreen webkitallowfullscreen></iframe>
-**
+Want a deeper understanding of Deploying Azure Stack HCI, and ready to learn quickly about the components? 
+
+<a href="https://sway.office.com/f4UzIZqrmGgMqTfZ?ref=Link.office.com/f4UzIZqrmGgMqTfZ?ref=Link" target="_blank">Deploying Azure Stack HCI</a>
 
 ***New, the latest build now deploys Version 21H2 of Azure Stack HCI, so you can try out the latest features today! ***
 
