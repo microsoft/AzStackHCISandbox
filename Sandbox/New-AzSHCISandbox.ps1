@@ -1084,7 +1084,7 @@ function Set-AzSMGMT {
 
         #Disable ServerManager Auto-Start
 
-        Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask | Out-Null
+      #  Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask | Out-Null
 
         # Create Hyper-V Networking for AzSMGMT
 
