@@ -2715,6 +2715,7 @@ function New-HyperConvergedEnvironment {
             } 
 
             Write-Verbose "Rebooting SDN Host $AzSHOST"
+            Start-Sleep -Seconds 60
             Restart-Computer $AzSHOST -Force -Confirm:$false -Credential $using:domainCred
 
         }
