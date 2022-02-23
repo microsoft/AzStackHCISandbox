@@ -8,7 +8,7 @@ Configuration ASHCIHost {
     [String]$dsc_source="https://github.com/microsoft/AzStackHCISandbox/blob/main/AKS-Sandbox/Sandbox.zip?raw=true",
     #[Parameter(Mandatory)]
     [string]$customRdpPort,
-    [String]$ashci_uri="https://ashcinested.blob.core.windows.net/vhd/AzStackHCI-21H2.vhdx?sp=r&st=2021-07-01T14:18:35Z&se=2021-07-30T22:18:35Z&spr=https&sv=2020-02-10&sr=b&sig=KV30E8YxRjS1co0bZWwmwjIEbD4aSCXsNlukLvLdack%3D",
+    [String]$ashci_uri="https://aka.ms/AAbbhkn",
     [String]$server2019_uri="https://aka.ms/AAbclsv",
     [String]$wacUri = "https://aka.ms/wacdownload"
     )
@@ -98,7 +98,7 @@ Configuration ASHCIHost {
     }
     xRemoteFile "WAC_Source"{
         uri=$wacURI
-        DestinationPath="$env:SystemDrive\AzHCI_Sandbox\AzSHCISandbox-main\Applications\Windows Admin Center\WindowsAdminCenter2009.msi"
+        DestinationPath="$env:SystemDrive\AzHCI_Sandbox\AzSHCISandbox-main\Applications\Windows Admin Center\WindowsAdminCenter.msi"
         DependsOn="[Archive]ASHCIBuildScripts"
     }
     cShortcut "BuildScript" {
