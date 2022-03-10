@@ -111,6 +111,15 @@ Configuration ASHCIHost {
 
     }
 
+    cShortcut "RegisterScript" {
+        Path="C:\Users\Public\Desktop\New-AzSHCISandbox.lnk"
+        Target="C:\AzHCI_Sandbox\AzSHCISandbox-main\Register-Cluster.ps1"
+        WorkingDirectory="C:\AzHCI_Sandbox\AzSHCISandbox-main"
+        Icon='shell32.dll,277'
+        DependsOn="[xRemoteFile]ASHCIBuildScripts"
+
+    }
+
 
 
 
