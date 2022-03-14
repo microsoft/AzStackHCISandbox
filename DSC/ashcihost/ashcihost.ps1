@@ -5,7 +5,7 @@ Configuration ASHCIHost {
     [System.Management.Automation.PSCredential]$Admincreds,
     [String]$targetDrive = "V",
     [String]$targetVMPath = "$targetDrive" + ":\VMs",
-    [String]$dsc_source="https://github.com/microsoft/AzStackHCISandbox/blob/main/Sandbox/Sandbox.zip",
+    [String]$dsc_source="https://github.com/microsoft/AzStackHCISandbox/blob/69e0f3625cb1f288c27f224e96c0d26056cce0ef/Sandbox/Sandbox.zip",
     
     #[Parameter(Mandatory)]
     [string]$customRdpPort,
