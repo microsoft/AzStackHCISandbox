@@ -7,6 +7,7 @@ $adcred=Get-Credential -UserName "contoso\administrator" -Message "Provide AD Ac
   #install modules
        Write-Host "Installing Required Modules" -ForegroundColor Green -BackgroundColor Black
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+        Install-WindowsFeature -name RSAT-Clustering-Powershell
         $ModuleNames="Az.Resources","Az.Accounts", "Az.stackhci"
         foreach ($ModuleName in $ModuleNames){
             if (!(Get-InstalledModule -Name $ModuleName -ErrorAction Ignore)){
@@ -38,5 +39,6 @@ $adcred=Get-Credential -UserName "contoso\administrator" -Message "Provide AD Ac
 Write-Host "Registering the Cluster" -ForegroundColor Green -BackgroundColor Black
 $armtoken = Get-AzAccessToken
 $graphtoken = Get-AzAccessToken -ResourceTypeName AadGraph
-Register-AzStackHCI -SubscriptionId $context.Subscription.Id -ComputerName azshost1 -AccountId $context.Account.Id -ArmAccessToken $armtoken.Token -GraphAccessToken $graphtoken.Token -EnableAzureArcServer -Credential $adcred -Region $region -ResourceName azstackcluster
+$clustername=Get-Cluster
+Register-AzStackHCI -SubscriptionId $context.Subscription.Id -ComputerName azshost1 -AccountId $context.Account.Id -ArmAccessToken $armtoken.Token -GraphAccessToken $graphtoken.Token -EnableAzureArcServer -Credential $adcred -Region $region -ResourceName $clustername.Name
     

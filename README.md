@@ -4,13 +4,14 @@
 
 
 ![](media/microsoft-azure-stack-HCI-logo.png)
-**Welcome to the easiest deployment of Azure Stack HCI, full stack of your life!** With this ARM Template you will be able to deploy a working, nested Azure Stack HCI cluster with Hyper-V, Storage Spaces Direct and Software Defined Networking, all manged by Windows Admin Center. It's so simple!
+**Welcome to the easiest deployment of Azure Stack HCI, full stack of your life!** 
+
+With this ARM Template you will be able to deploy a working, nested Azure Stack HCI cluster with Hyper-V, Storage Spaces Direct and Software Defined Networking, all manged by Windows Admin Center. It's so simple!
 
 Want a deeper understanding of Deploying Azure Stack HCI, and ready to learn quickly about the components? 
 
 <a href="https://sway.office.com/f4UzIZqrmGgMqTfZ?ref=Link.office.com/f4UzIZqrmGgMqTfZ?ref=Link" target="_blank">Deploying Azure Stack HCI</a>
 
-***New, the latest build now deploys Version 21H2 of Azure Stack HCI, so you can try out the latest features today! ***
 
 There are two main methods of deployment, GUI using the "Deploy to Azure" button here, or PowerShell. 
 
@@ -24,7 +25,7 @@ Both methods will require you have a few things:
 
 **Deploy to Azure Method**
 
-You will NEED to supply your own Parameters file, which is located in this repository. You can simply load the file from the JSON folder, or copy/paste. Your choice.
+### You will NEED to supply your own Parameters file, which is located in this repository. You can simply load the file from the JSON folder, or copy/paste. Your choice. ###
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmgodfre3%2FAzSHCI-AZNested%2Fmain%2Fjson%2Fazuredeploy.json)
 
@@ -250,8 +251,6 @@ The following are a list of settings that are configurable and have been fully t
 | Setting                              | Type   | Description                                                                                                                                                                                                     | Example                     |
 
 
-## AKS Deployment
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FAzStackHCISandbox%2Fmain%2FAKS-json%2Fazuredeploy.json)
 
 
 

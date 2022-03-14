@@ -2726,7 +2726,7 @@ function New-HyperConvergedEnvironment {
 
             Write-Verbose "Checking to see if $AzSHOST is up and online"
             while ((Invoke-Command -ComputerName $AzSHOST -Credential $using:domainCred { "Test" } `
-                        -ea SilentlyContinue) -ne "Test") { Start-Sleep -Seconds 1 }
+                        -ea SilentlyContinue) -ne "Test") { Start-Sleep -Seconds 60 }
 
         }
 
