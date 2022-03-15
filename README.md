@@ -27,62 +27,75 @@ Both methods will require you have a few things:
 
 ### You will NEED to supply your own Parameters file, which is located in this repository. You can simply load the file from the JSON folder, or copy/paste. Your choice. ###
  
- <!--  
+ 
 ## new ##
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FAzStackHCISandbox%2Fmain%2Fjson%2Fazuredeploy.json)
--->
 
 
+<!--
+## old ##  
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmgodfre3%2FAzSHCI-AZNested%2Fmain%2Fjson%2Fazuredeploy.json)
-
+-->
 ### Prefer a video, no problem! Watch this Getting Started video to well...Get Started with the Azure Stack HCI Sandbox, and within about 2 hours you will be ready to test out Azure Stack HCI! ###
 
 [![AzStackHCISandbox-Getting Started](https://res.cloudinary.com/marcomontalbano/image/upload/v1624560307/video_to_markdown/images/youtube--nmQ12Ma1pD4-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/nmQ12Ma1pD4 "AzStackHCISandbox-Getting Started")
+# Custom Deployment- Azure Portal #
 
-First step, you will want to click "Edit Parameters"
-![](media/Custom%20Param%20Files-part%201.jpg)
+For your first step, you will want to click "Edit Parameters"
+![](./media/Readme%20Content/CustomDeployment_Step1.png)
 
-Then you will want to load the Parameters File, remember the file is located in the JSON folder in the Repository.
-![](media/Custom%20Param%20Files-part%202.jpg)
+Then you will want to load the Parameters File, remember the file is located in the JSON folder in the Repository. 
+
+
+![](./media/Readme%20Content/CustomDeployment_Step2.png)
+
 
 You will need to supply the Resource Group and the Admin Password still, but this is a fairly easy process.
 
 Hit Review+Create and jump to the "After Deployment Section"
+![](./media/Readme%20Content/CustomDeployment_Step3.png)
 
 
 
-
-
-**PowerShell Process**
+#
+# Custom Deployment - AZ PowerShell  #
 
 If you are more familiar with PowerShell and would rather do the deployment in Command Line, well Awesome, that is how you should be doing this. The instructions are below:
 
 First, you will need to login to your Azure Account in your Terminal Session.
-
-![](media/gin-AZAccount.jpg)
-
+```{Powershell}
+Connect-AZAccount
+```
 Then you will need to select your Subscription
-![Select-AZSubscription -Subscription](media/Select%20Subscription.jpg)
+
+```{Powershell}
+Select-AZSubscription -Subscription $subscriptionid
+```
 
 Following that, you will want to create a Resource Group Name Variable, something like:
 
-![$rg=Get-AZResourceGroup -Name ](media/ResourceGroup.jpg)
+```{Powershell}
+$rgname="ASHCI-Sandbox"
+$resourcegroup=Get-AZResourceGroup -ResourceGroupName $rgname
+```
 
 then you need a password, stored as a variable, don't forget it, you will need it to login to the VM we create.
 
-![](media/Password.jpg)
-
+```{Powershell}
+$securepw=ConvertTo-SecureString -String "Password01" -AsPlainText -Force
+```
 
 Now store the template files as variables. Try something like
-![](media/Template2.jpg)
-
-and
-![](media/Param_Template.jpg)
+```{Powershell}
+$template=".\json\azuredeploy.json"
+$param=".\json\azuredeploy.parameters.json"
+```
 
 Phew, we are ready to deploy. Ready, here we go.
 
-![](media/Deployment%20Command%20POSH.jpg)
-
+```{Powershell}
+New-AzResourceGroupDeployment -ResourceGroupName $rgname -Name "ASHCISandbox-Deploy" -TemplateFile $template -TemplateParameterFile $param -AdminPassword $securepw
+```
 
 Give this a couple of minutes, and you will see your new VM, ASHCIHost001 if you kept the default name, in your Resource group. You can RDP to the Public IP address and then begin the deployment of the cluster, this first step was only to deploy the Host, the real fun begins next but don't worry it really is easy.
 
@@ -97,10 +110,10 @@ Go grab a coffee or lunch, the components need a few minutes to download, but on
 Ok, are you ready to deploy this cluster, fair enough. This is challenging, so pay attention. I want you to right click the shortcut on the desktop, and select "Run with PowerShell." Ok, go watch a movie, the next episode of Wanda-Vision/ Mandalorian. We need like 2 hours, and you should come back to 3 Virtual Machines, deployed on this host. That's it, really. You now have a working Azure Stack HCI cluster, it has Hyper-V configured, a Fail over Cluster, Storage Spaces Direct, Software Defined Networking and to manage it all, Windows Admin Center. Have fun, and read how to use this lab below:
 
 
+#
+# After Azure Deployment #
 
-**After Azure Deployment**
-
-**# Azure Stack HCI Sandbox (2/7/2021)**
+**Azure Stack HCI Sandbox (2/7/2021)**
 
 
 ![Photo of Fully Deplopyed ASHCI-Sandbox](media/AzSHCISandbox.png)
