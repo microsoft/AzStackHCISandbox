@@ -1,0 +1,151 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>Microsoft.PowerShell.Commands.PSRepositoryItemInfo</T>
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Name">xHyper-V</S>
+      <Version N="Version">3.17.0.0</Version>
+      <S N="Type">Module</S>
+      <S N="Description">Module with DSC Resources for Hyper-V area</S>
+      <S N="Author">Microsoft Corporation</S>
+      <Obj N="CompanyName" RefId="1">
+        <TN RefId="1">
+          <T>System.Object[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>PowerShellTeam</S>
+          <S>gaelcolas</S>
+          <S>dsccommunity</S>
+        </LST>
+      </Obj>
+      <S N="Copyright">(c) 2017 Microsoft Corporation. All rights reserved.</S>
+      <DT N="PublishedDate">2019-10-30T19:17:24-04:00</DT>
+      <Obj N="InstalledDate" RefId="2">
+        <DT>2022-03-09T14:25:02.9452537-05:00</DT>
+        <MS>
+          <Obj N="DisplayHint" RefId="3">
+            <TN RefId="2">
+              <T>Microsoft.PowerShell.Commands.DisplayHintType</T>
+              <T>System.Enum</T>
+              <T>System.ValueType</T>
+              <T>System.Object</T>
+            </TN>
+            <ToString>DateTime</ToString>
+            <I32>2</I32>
+          </Obj>
+        </MS>
+      </Obj>
+      <Nil N="UpdatedDate" />
+      <URI N="LicenseUri">https://github.com/PowerShell/xHyper-V/blob/master/LICENSE</URI>
+      <URI N="ProjectUri">https://github.com/PowerShell/xHyper-V</URI>
+      <Nil N="IconUri" />
+      <Obj N="Tags" RefId="4">
+        <TNRef RefId="1" />
+        <LST>
+          <S>DesiredStateConfiguration</S>
+          <S>DSC</S>
+          <S>DSCResourceKit</S>
+          <S>DSCResource</S>
+          <S>PSModule</S>
+        </LST>
+      </Obj>
+      <Obj N="Includes" RefId="5">
+        <TN RefId="3">
+          <T>System.Collections.Hashtable</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">Command</S>
+            <Obj N="Value" RefId="6">
+              <TNRef RefId="1" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Ref N="Value" RefId="6" />
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Ref N="Value" RefId="6" />
+          </En>
+          <En>
+            <S N="Key">DscResource</S>
+            <Obj N="Value" RefId="7">
+              <TNRef RefId="1" />
+              <LST>
+                <S>HyperVCommon</S>
+                <S>MSFT_x005F_xVHD</S>
+                <S>MSFT_x005F_xVhdFileDirectory</S>
+                <S>MSFT_x005F_xVMDvdDrive</S>
+                <S>MSFT_x005F_xVMHardDiskDrive</S>
+                <S>MSFT_x005F_xVMHost</S>
+                <S>MSFT_x005F_xVMHyperV</S>
+                <S>MSFT_x005F_xVMNetworkAdapter</S>
+                <S>MSFT_x005F_xVMProcessor</S>
+                <S>MSFT_x005F_xVMScsiController</S>
+                <S>MSFT_x005F_xVMSwitch</S>
+              </LST>
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Function</S>
+            <Ref N="Value" RefId="6" />
+          </En>
+          <En>
+            <S N="Key">RoleCapability</S>
+            <Ref N="Value" RefId="6" />
+          </En>
+        </DCT>
+      </Obj>
+      <Nil N="PowerShellGetFormatVersion" />
+      <S N="ReleaseNotes">* MSFT_x005F_xVMNetworkAdapter:_x000D__x000A_  * Added NetworkSettings to be able to statically set IPAddress._x000D__x000A_  * Added option for Vlan tagging. You can now setup a Network Adapeter as an access switch on a specific Vlan.</S>
+      <Obj N="Dependencies" RefId="8">
+        <TNRef RefId="1" />
+        <LST />
+      </Obj>
+      <S N="RepositorySourceLocation">https://www.powershellgallery.com/api/v2</S>
+      <S N="Repository">PSGallery</S>
+      <S N="PackageManagementProvider">NuGet</S>
+      <Obj N="AdditionalMetadata" RefId="9">
+        <TN RefId="4">
+          <T>System.Management.Automation.PSCustomObject</T>
+          <T>System.Object</T>
+        </TN>
+        <MS>
+          <S N="copyright">(c) 2017 Microsoft Corporation. All rights reserved.</S>
+          <S N="description">Module with DSC Resources for Hyper-V area</S>
+          <S N="requireLicenseAcceptance">False</S>
+          <S N="releaseNotes">* MSFT_x005F_xVMNetworkAdapter:_x000D__x000A_  * Added NetworkSettings to be able to statically set IPAddress._x000D__x000A_  * Added option for Vlan tagging. You can now setup a Network Adapeter as an access switch on a specific Vlan.</S>
+          <S N="isLatestVersion">True</S>
+          <S N="isAbsoluteLatestVersion">False</S>
+          <S N="versionDownloadCount">149541</S>
+          <S N="downloadCount">232323</S>
+          <S N="packageSize">116935</S>
+          <S N="published">10/30/2019 7:17:24 PM -04:00</S>
+          <S N="created">10/30/2019 7:17:24 PM -04:00</S>
+          <S N="lastUpdated">3/9/2022 7:24:00 PM -05:00</S>
+          <S N="tags">DesiredStateConfiguration DSC DSCResourceKit DSCResource PSModule PSDscResource_HyperVCommon PSDscResource_MSFT_x005F_xVHD PSDscResource_MSFT_x005F_xVhdFileDirectory PSDscResource_MSFT_x005F_xVMDvdDrive PSDscResource_MSFT_x005F_xVMHardDiskDrive PSDscResource_MSFT_x005F_xVMHost PSDscResource_MSFT_x005F_xVMHyperV PSDscResource_MSFT_x005F_xVMNetworkAdapter PSDscResource_MSFT_x005F_xVMProcessor PSDscResource_MSFT_x005F_xVMScsiController PSDscResource_MSFT_x005F_xVMSwitch PSIncludes_DscResource</S>
+          <S N="developmentDependency">False</S>
+          <S N="updated">2022-03-09T19:24:00Z</S>
+          <S N="NormalizedVersion">3.17.0</S>
+          <S N="Authors">Microsoft Corporation</S>
+          <S N="IsPrerelease">false</S>
+          <S N="ItemType">Module</S>
+          <S N="FileList">xHyper-V.nuspec|LICENSE|CHANGELOG.md|README.md|xHyper-V.psd1|Misc\VMHardDiskDriveGenerator.ps1|Misc\VMScsiControllerGenerator.ps1|Misc\VMSwitchGenerator.ps1|Misc\VMResourceGenerator.ps1|Misc\VHDResourceGenerator.ps1|Examples\Sample_x005F_xVMHyperV_DynamicMemory.ps1|Examples\Sample_x005F_xVMNetworkAdapter_VMStaticNetworkSettings.ps1|Examples\Sample_x005F_xVMSwitch_External.ps1|Examples\Sample_x005F_xVMHardDiskDrive_VMWithExtraDisk.ps1|Examples\Sample_x005F_xVMSwitch_ExternalSET.ps1|Examples\Sample_x005F_xVMSwitch_Internal.ps1|Examples\Sample_x005F_xVMSwitch_ExternalSET_LBMode.ps1|Examples\Sample_x005F_xVMHyperV_SimpleWithNestedVirtualization.ps1|Examples\Sample_x005F_xVHD_MissingPropertyVHD.ps1|Examples\Sample_x005F_xVMHyperV_Complete.ps1|Examples\Sample_x005F_xVMHost_Paths.ps1|Examples\Sample_x005F_xVMHyperV_Simple.ps1|Examples\Sample_x005F_xVMNetworkAdapter_ManagementOS.ps1|Examples\Sample_x005F_xVMNetworkAdapter_VMVlanTagging.ps1|Examples\Sample_x005F_xVHD_NewVHD.ps1|Examples\Sample_x005F_xVMNetworkAdapter_MultipleVM.ps1|Examples\Sample_x005F_xVMHardDiskDrive_VMWith4AdditionalDisks.ps1|Examples\Sample_x005F_xVhdFileExamples.ps1|Examples\Sample_x005F_xVHD_FixedVHD.ps1|Examples\Sample_x005F_xVMNetworkAdapter_MultipleManagementOS.ps1|Examples\Sample_x005F_xVMHyperV_MultipleNICs.ps1|Examples\Sample_x005F_xVMScsiController_AddControllers.ps1|Examples\Sample_x005F_xVMHyperV_SimpleWithDVDDrive.ps1|Examples\Sample_x005F_xVHD_AdditionalPropertyVHD.ps1|Examples\Sample_x005F_xVMNetworkAdapter_MultipleVMMACAddress.ps1|Examples\Sample_x005F_xVHD_DiffVHD.ps1|Tests\Unit\MSFT_x005F_xVMDvdDrive.tests.ps1|Tests\Unit\MSFT_x005F_xVMSwitch_BandwidthReservationMode.Tests.ps1|Tests\Unit\MSFT_x005F_xVMHost.tests.ps1|Tests\Unit\MSFT_x005F_xVMSwitch_EnableEmbeddedTeaming.Tests.ps1|Tests\Unit\MSFT_x005F_xVMProcessor.Tests.ps1|Tests\Unit\HyperVCommon.tests.ps1|Tests\Unit\MSFT_x005F_xVMHyperV.Tests.ps1|Tests\Unit\MSFT_x005F_xVMScsiController.Tests.ps1|Tests\Unit\MSFT_x005F_xVMHardDiskDrive.Tests.ps1|Tests\Unit\MSFT_x005F_xVMSwitch_Id.Tests.ps1|Tests\Unit\MSFT_x005F_xVMNetworkAdapter.Tests.ps1|Tests\Unit\MSFT_x005F_xVHD.tests.ps1|Tests\Integration\MSFT_x005F_xVMProcessor.Integration.Tests.ps1|Tests\Integration\MSFT_x005F_xVMDvdDrive_add.config.ps1|Tests\Integration\MSFT_x005F_xVMHost_set.config.ps1|Tests\Integration\MSFT_x005F_xVMHost.Integration.Tests.ps1|Tests\Integration\MSFT_x005F_xVMProcessor_set.config.ps1|Tests\Integration\MSFT_x005F_xVMDvdDrive.Integration.Tests.ps1|Tests\Integration\IntegrationTestsCommon.psm1|Tests\Integration\MSFT_x005F_xVMDvdDrive_remove.config.ps1|DSCResources\MSFT_x005F_xVMHyperV\MSFT_x005F_xVMHyperV.schema.mof|DSCResources\MSFT_x005F_xVMHyperV\MSFT_x005F_xVMHyperV.psm1|DSCResources\MSFT_x005F_xVMScsiController\MSFT_x005F_xVMScsiController.psm1|DSCResources\MSFT_x005F_xVMScsiController\MSFT_x005F_xVMScsiController.schema.mof|DSCResources\MSFT_x005F_xVHD\MSFT_x005F_xVHD.psm1|DSCResources\MSFT_x005F_xVHD\MSFT_x005F_xVHD.schema.mof|DSCResources\MSFT_x005F_xVMProcessor\MSFT_x005F_xVMProcessor.psm1|DSCResources\MSFT_x005F_xVMProcessor\MSFT_x005F_xVMProcessor.schema.mof|DSCResources\MSFT_x005F_xVMHost\MSFT_x005F_xVMHost.psm1|DSCResources\MSFT_x005F_xVMHost\MSFT_x005F_xVMHost.schema.mof|DSCResources\MSFT_x005F_xVMHardDiskDrive\MSFT_x005F_xVMHardDiskDrive.psm1|DSCResources\MSFT_x005F_xVMHardDiskDrive\MSFT_x005F_xVMHardDiskDrive.schema.mof|DSCResources\HyperVCommon\HyperVCommon.psm1|DSCResources\MSFT_x005F_xVhdFileDirectory\MSFT_x005F_xVhdFileDirectory.psm1|DSCResources\MSFT_x005F_xVhdFileDirectory\MSFT_x005F_xVhdFileDirectory.schema.mof|DSCResources\MSFT_x005F_xVMDvdDrive\MSFT_x005F_xVMDvdDrive.psm1|DSCResources\MSFT_x005F_xVMDvdDrive\MSFT_x005F_xVMDvdDrive.schema.mof|DSCResources\MSFT_x005F_xVMNetworkAdapter\MSFT_x005F_xVMNetworkAdapter.psm1|DSCResources\MSFT_x005F_xVMNetworkAdapter\MSFT_x005F_xVMNetworkAdapter.schema.mof|DSCResources\MSFT_x005F_xVMSwitch\MSFT_x005F_xVMSwitch.psm1|DSCResources\MSFT_x005F_xVMSwitch\MSFT_x005F_xVMSwitch.schema.mof|DSCResources\MSFT_x005F_xVMHyperV\en-US\MSFT_x005F_xVMHyperV.psd1|DSCResources\MSFT_x005F_xVMScsiController\en-US\MSFT_x005F_xVMScsiController.strings.psd1|DSCResources\MSFT_x005F_xVMProcessor\en-US\MSFT_x005F_xVMProcessor.psd1|DSCResources\MSFT_x005F_xVMHost\en-US\MSFT_x005F_xVMHost.psd1|DSCResources\MSFT_x005F_xVMHardDiskDrive\en-US\MSFT_x005F_xVMHardDiskDrive.strings.psd1|DSCResources\HyperVCommon\en-us\HyperVCommon.strings.psd1|DSCResources\MSFT_x005F_xVMDvdDrive\en-us\MSFT_x005F_xVMDvdDrive.strings.psd1|DSCResources\MSFT_x005F_xVMNetworkAdapter\en-US\MSFT_x005F_xVMNetworkAdapter.psd1|DSCResources\MSFT_x005F_xVMSwitch\en-us\MSFT_x005F_xVMSwitch.strings.psd1</S>
+          <S N="GUID">f5a5f169-7026-4053-932a-19a7c37b1ca5</S>
+          <S N="PowerShellVersion">4.0</S>
+          <S N="CLRVersion">4.0</S>
+          <S N="CompanyName">Microsoft Corporation</S>
+        </MS>
+      </Obj>
+      <S N="InstalledLocation">C:\Users\migodfre\OneDrive - Microsoft\Documents\PowerShell\Modules\xHyper-V\3.17.0.0</S>
+    </MS>
+  </Obj>
+</Objs>
