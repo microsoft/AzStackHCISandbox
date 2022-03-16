@@ -1,19 +1,14 @@
 
-
-
-
-
 ![](media/microsoft-azure-stack-HCI-logo.png)
-**Welcome to the easiest deployment of Azure Stack HCI, full stack of your life!** 
+**Welcome to the easiest deployment of Azure Stack HCI, full stack of your life!**
 
 With this ARM Template you will be able to deploy a working, nested Azure Stack HCI cluster with Hyper-V, Storage Spaces Direct and Software Defined Networking, all manged by Windows Admin Center. It's so simple!
 
-Want a deeper understanding of Deploying Azure Stack HCI, and ready to learn quickly about the components? 
+Want a deeper understanding of Deploying Azure Stack HCI, and ready to learn quickly about the components?
 
 <a href="https://sway.office.com/f4UzIZqrmGgMqTfZ?ref=Link.office.com/f4UzIZqrmGgMqTfZ?ref=Link" target="_blank">Deploying Azure Stack HCI</a>
 
-
-There are two main methods of deployment, GUI using the "Deploy to Azure" button here, or PowerShell. 
+There are two main methods of deployment, GUI using the "Deploy to Azure" button here, or PowerShell.
 
 Both methods will require you have a few things:
 
@@ -25,9 +20,8 @@ Both methods will require you have a few things:
 
 **Deploy to Azure Method**
 
-### You will NEED to supply your own Parameters file, which is located in this repository. You can simply load the file from the JSON folder, or copy/paste. Your choice. ###
- 
- 
+### You will NEED to supply your own Parameters file, which is located in this repository. You can simply load the file from the JSON folder, or copy/paste. Your choice ###
+
 ## Deploy to Azure ##
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FAzStackHCISandbox%2Fmain%2Fjson%2Fazuredeploy.json)
@@ -36,36 +30,36 @@ Both methods will require you have a few things:
 ## old ##  
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmgodfre3%2FAzSHCI-AZNested%2Fmain%2Fjson%2Fazuredeploy.json)
 -->
-### Prefer a video, no problem! Watch this Getting Started video to well...Get Started with the Azure Stack HCI Sandbox, and within about 2 hours you will be ready to test out Azure Stack HCI! ###
+### Prefer a video, no problem! Watch this Getting Started video to well...Get Started with the Azure Stack HCI Sandbox, and within about 2 hours you will be ready to test out Azure Stack HCI ###
 
 [![AzStackHCISandbox-Getting Started](https://res.cloudinary.com/marcomontalbano/image/upload/v1624560307/video_to_markdown/images/youtube--nmQ12Ma1pD4-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/nmQ12Ma1pD4 "AzStackHCISandbox-Getting Started")
+
 # Custom Deployment- Azure Portal #
 
 For your first step, you will want to click "Edit Parameters"
 ![](./media/Readme%20Content/CustomDeployment_Step1.png)
 
-Then you will want to load the Parameters File, remember the file is located in the JSON folder in the Repository. 
-
+Then you will want to load the Parameters File, remember the file is located in the JSON folder in the Repository.
 
 ![](./media/Readme%20Content/CustomDeployment_Step2.png)
-
 
 You will need to supply the Resource Group and the Admin Password still, but this is a fairly easy process.
 
 Hit Review+Create and jump to the "After Deployment Section"
 ![](./media/Readme%20Content/CustomDeployment_Step3.png)
 
-
-
 #
-# Custom Deployment - AZ PowerShell  #
+
+# Custom Deployment - AZ PowerShell #
 
 If you are more familiar with PowerShell and would rather do the deployment in Command Line, well Awesome, that is how you should be doing this. The instructions are below:
 
 First, you will need to login to your Azure Account in your Terminal Session.
+
 ```{Powershell}
 Connect-AZAccount
 ```
+
 Then you will need to select your Subscription
 
 ```{Powershell}
@@ -86,6 +80,7 @@ $securepw=ConvertTo-SecureString -String "Password01" -AsPlainText -Force
 ```
 
 Now store the template files as variables. Try something like
+
 ```{Powershell}
 $template=".\json\azuredeploy.json"
 $param=".\json\azuredeploy.parameters.json"
@@ -100,22 +95,66 @@ New-AzResourceGroupDeployment -ResourceGroupName $rgname -Name "ASHCISandbox-Dep
 Give this a couple of minutes, and you will see your new VM, ASHCIHost001 if you kept the default name, in your Resource group. You can RDP to the Public IP address and then begin the deployment of the cluster, this first step was only to deploy the Host, the real fun begins next but don't worry it really is very easy.
 
 #
+
 ### Warning ###
-So, the deployment may error out, with a warning about the DSC extension not completing due to a system shutdown. Don't worry though. That's the beauty of DSC, the configuration will run every 15 minutes. 
+
+So, the deployment may error out, with a warning about the DSC extension not completing due to a system shutdown. Don't worry though. That's the beauty of DSC, the configuration will run every 15 minutes.
 ![](media/Deploy_error_1.jpg)
-#
-
-
-Go grab a coffee or lunch, the components need a few minutes to download, but once you see the shortcut on the desktop, named New-AZSHCI-Sandbox, you are ready to go. 
-
-Ok, are you ready to deploy this cluster, fair enough. This is challenging, so pay attention. I want you to right click the shortcut on the desktop, and select "Run with PowerShell." Ok, go watch a movie, the next episode of Wanda-Vision/ Mandalorian. We need like 2 hours, and you should come back to 3 Virtual Machines, deployed on this host. That's it, really. You now have a working Azure Stack HCI cluster, it has Hyper-V configured, a Fail over Cluster, Storage Spaces Direct, Software Defined Networking and to manage it all, Windows Admin Center. Have fun, and read how to use this lab below:
-
 
 #
+
+Go grab a coffee or lunch, the components need a few minutes to download, but once you see the shortcut on the desktop, named New-AZSHCI-Sandbox, you are ready to go.
+
+# Deployment-Post Azure #
+
+Now that the Azure Resource is completed, you are ready to begin deploying the HCI cluster. The Azure VM that you just deployed is only a Nested Host, to contain all the components neccesary for this 2 node HCI cluster.
+
+You have 2 main options for deploying the HCI cluster:
+
+1) Build Script located on the Desktop of the Azure Virtual Machine- simply run this script and 1-2 hours later cluster should be deployed.
+2) Run the script from powershell and monitor the progress. The code is available here:
+
+   ```powershell
+   & C:\AzHCI_Sandbox\AzSHCISandbox-main\New-AzSHCISandbox.ps1
+   ```
+
+Once the build is complete, you will see the shortcut to RDP the Admin Center Server. You can use this to RDP your Windows 10 Workstation and begin using the HCI Sandbox.
+
+# Post Deployment - HCI Cluster Registration #
+
+One of the first steps when deploying Azure Stack HCI is registraiton of the Cluster to your Azure Subscription. You can register the cluster in a number of ways including with Windows Admin Center, instructions are available here.
+
+For your convience a script has been added to automate that registration process.  Run the code below in Powershell, you will be prompted for three additional items:
+
+1) Login for the Contoso Domain Admin Account  ( Default is "Password01)
+2) Login to Azure with Device Credentials, you will see this in yellow text with a code to input to "Microsoft.com/devicelogin.
+3) Select an Azure Region to deploy the cluster into from the list.
+
+#
+
+### Run this from the Azure VM ###
+
+```Powershell
+& C:\AzHCI_Sandbox\AzSHCISandbox-main\Register-Cluster.ps1
+```
+
+#
+
 # After Azure Deployment #
 
-**Azure Stack HCI Sandbox (2/7/2021)**
+## Connecting to Admin Center to Manage the Cluster ##
 
+#
+
+    Using RDP, log into the 'Admincenter' virtual machine with your creds: User: Contoso\Administrator Password: Password01
+
+    Launch the link to Windows Admin Center
+
+    Add the Hyper-Converged Cluster *AzStackCluster* to *Windows Admin Center* with *Network Controller*: [https://nc01.contosoc.com](https://nc01.contosoc.com) and you're off and ready to go!
+
+![Add Hyper-Converged Cluster Connection](media/AddHCCluster.png)
+
+**Azure Stack HCI Sandbox (2/7/2021)**
 
 ![Photo of Fully Deplopyed ASHCI-Sandbox](media/AzSHCISandbox.png)
 
@@ -147,20 +186,20 @@ You probably are not going to read the requirements listed below, so here are th
 3. Create a Sysprepped Azure Stack HCI VHDX file (with the latest updates).
 
 4. Edit the .PSD1 configuration file (do not rename it) to set:
-    
+
     * The Password needs to be the same as the local administrator password on your physical Hyper-V Host
 
-    * Product Key for Server 2019 
-      
-    >**Warning!** The Configuration file will be copied to the console drive during install. **The product keys will be in plain text and not deleted or hidden!**     
-    
+    * Product Key for Server 2019
+
+    >**Warning!** The Configuration file will be copied to the console drive during install. **The product keys will be in plain text and not deleted or hidden!**
+
     * The paths to the VHDX files that you just created.
     * Set ``HostVMPath`` where your VHDX files will reside. (*Ensure that there is at least 250gb of free space!*)
-    * Optionally, set the name of your external switch that has access to the internet in the ``natExternalVMSwitchName = `` setting and optionally the VLAN for it in the ``natVLANID``. If you don't want Internet access, set ``natConfigure`` to ``$false``.
+    * Optionally, set the name of your external switch that has access to the internet in the ``natExternalVMSwitchName =`` setting and optionally the VLAN for it in the ``natVLANID``. If you don't want Internet access, set ``natConfigure`` to ``$false``.
 
 5. Download the [**Windows Admin Center**](https://docs.microsoft.com/en-us/windows-server/manage/windows-admin-center/understand/windows-admin-center) install file and place it in the `.\Windows Admin Center` folder.
 
-6. On the Hyper-V Host, open up a PowerShell console (with admin rights) and navigate to the ``AzSHCISandbox` folder and run ``.\New-AzSHCISandbox``.
+6. On the Hyper-V Host, open up a PowerShell console (with admin rights) and navigate to the ``AzSHCISandbox` folder and run``.\New-AzSHCISandbox``.
 
 7. It should take a little over an hour to deploy (if using SSD drives).
 
@@ -171,7 +210,6 @@ You probably are not going to read the requirements listed below, so here are th
 10. Add the Hyper-Converged Cluster *AzStackCluster* to *Windows Admin Center* with *Network Controller*: [https://nc01.contosoc.com](https://nc01.contosoc.com) and you're off and ready to go!
 
 ![Add Hyper-Converged Cluster Connection](media/AddHCCluster.png)
-
 
 ## Configuration Overview
 
@@ -184,10 +222,9 @@ AzSHCISandbox will automatically create and configure the following:
 * One Single Node Network Controller virtual machine
 * One Software Load Balancer virtual machine
 * Two Gateway virtual machines (one active, one passive)
-* Management and Provider VLAN and networks 
+* Management and Provider VLAN and networks
 * Private, Public, and GRE VIPs and automatically configured in Network Controller
 * VLAN to provide testing for L3 Gateway Connections
-
 
 ## Hardware Prerequisites
 
@@ -196,7 +233,6 @@ The AzSHCISandbox can only run on a single host.
 |  Number of Hyper-V Hosts | Memory per Host   | HD Available Free Space   | Processor   |  Hyper-V Switch Type |
 |---|---|---|---|---|
 | 1  | 64gb | 250gb SSD\NVME   | Intel - 4 core Hyper-V Capable with SLAT   | Installed Automatically by Script  |
-
 
 Please note the following regarding the hardware setup requirements:
 
@@ -209,8 +245,8 @@ Please note the following regarding the hardware setup requirements:
 
 * If using more than one host, an unmanaged switch or dumb hub should be used to link all of the systems together. If a managed switch is used, ensure that the following VLANS are created and trunked to the ports the host(s) will be using:
 
-   * VLAN 12 – **Provider Network**
-   * VLAN 200 - **VLAN for L3 testing** (optional)
+  * VLAN 12 – **Provider Network**
+  * VLAN 200 - **VLAN for L3 testing** (optional)
 
 > **Note:** The VLANs being used can be changed using the configuration file.
 
@@ -223,9 +259,9 @@ On the Hyper-V Host, create a VMswitch  that maps to a NIC attached to a network
 
 ## Software Prerequisites
 
-### Required VHDX files:
+### Required VHDX files
 
- **GUI.vhdx** - Sysprepped Desktop Experience version of Windows Server 2019 **Datacenter**. Only Windows Server 2019 Datacenter is supported. Other releases such as Server Datacenter 1809 are not supported as they do not support S2D.           
+ **GUI.vhdx** - Sysprepped Desktop Experience version of Windows Server 2019 **Datacenter**. Only Windows Server 2019 Datacenter is supported. Other releases such as Server Datacenter 1809 are not supported as they do not support S2D.
   
 **AzSHCI.vhdx** - Same requirements.
 
@@ -235,13 +271,11 @@ On the Hyper-V Host, create a VMswitch  that maps to a NIC attached to a network
 
 [**Windows Admin Center**](https://docs.microsoft.com/en-us/windows-server/manage/windows-admin-center/understand/windows-admin-center) - The latest version of Windows Admin Center's MSI installer file should be at the root of the *Windows Admin Center* folder under *.\Applications*
 
-
 ## Configuration File (NestedSDN-Config) Reference
 
 The following are a list of settings that are configurable and have been fully tested. You may be able to change some of the other settings and have them work, but they have not been fully tested.
 
 >**Note:** Changing the IP Addresses for Management Network (*default of 192.168.1.0/24*) has been succesfully tested.
-
 
 | Setting                  |Type| Description                                                                                                                         |  Example                           |
 |--------------------------------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------|
@@ -270,15 +304,11 @@ The following are a list of settings that are configurable and have been fully t
 | SDNMGMTMemoryinGB                    | int    | This value controls the amount of RAM for the SDNMGMT Nested VM which contains only the Console, Router, Admincenter, and DC VMs.                                                                               | 13GB                        |
 | Setting                              | Type   | Description                                                                                                                                                                                                     | Example                     |
 
-
-
-
-
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+the rights to use your contribution. For details, visit <https://cla.opensource.microsoft.com>.
 
 When you submit a pull request, a CLA bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
@@ -290,8 +320,8 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
