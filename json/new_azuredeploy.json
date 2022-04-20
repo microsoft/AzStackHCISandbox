@@ -1,0 +1,157 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+            
+                "networkInterfaceName": {
+                    "type": "string",
+                    "defaultValue": "ashcihost001-Nic1"
+                },
+                "networkSecurityGroupName": {
+                    "type": "string",
+                    "defaultValue": "ashcihost001-nsg"
+                },
+                "subnetName": {
+                    "type": "string",
+                    "defaultValue": "default"
+                },
+                "virtualNetworkName": {
+                    "type": "string",
+                    "defaultValue": "ASHCIHost-Vnet"
+                },
+                "addressPrefixes": {
+                    "type": "array",
+                    "defaultValue": "10.0.0.0/24"
+                },
+                "subnets": {
+                    "value": [
+                        {
+                            "name": "default",
+                            "properties": {
+                                "addressPrefix": "10.0.0.0/24"
+                            }
+                        }
+                    ]
+                },
+
+                "publicIpAddressName": {
+                    "type": "string",
+                    "defaultValue": "ashcihost001-Publicip"
+                },
+                "publicIpAddressType": {
+                    "type": "string",
+                    "defaultValue": "Dynamic"
+                },
+                "publicIpAddressSku": {
+                    "type": "string",
+                    "defaultValue": "Basic"
+                },
+                 "customRdpPort": {
+                    "type": "string",
+                    "defaultValue": "3389",
+                    "metadata": {
+                        "description": "If you wish to use a different port to RDP into the VM (between 0 and 65535), change it here, otherwise, leave the default."
+                    }
+                 }
+            
+            },
+    "functions": [],
+    "variables": {
+                "dscUri": "https://github.com/microsoft/AzStackHCISandbox/blob/main/DSC/ashcihost.zip?raw=true",
+                "artifactsLocation": "https://github.com/microsoft/AzStackHCISandbox/tree/evalguide-Redesign-Work-Godfrey/",
+                "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
+                "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+                "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
+            
+
+            },
+    "resources": [
+            
+            {
+                "name": "[parameters('networkInterfaceName')]",
+                "type": "Microsoft.Network/networkInterfaces",
+                "apiVersion": "2020-06-01",
+                "location": "[resourceGroup().location]",
+                "dependsOn": [
+                    "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]",
+                    "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
+                    "[concat('Microsoft.Network/publicIpAddresses/', parameters('publicIpAddressName'))]"
+                ],
+                "properties": {
+                    "ipConfigurations": [
+                        {
+                            "name": "ipconfig1",
+                            "properties": {
+                                "subnet": {
+                                    "id": "[variables('subnetRef')]"
+                                },
+                                "privateIPAllocationMethod": "Dynamic",
+                                "publicIpAddress": {
+                                    "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', parameters('publicIpAddressName'))]"
+                                }
+                            }
+                        }
+                    ],
+                    "networkSecurityGroup": {
+                        "id": "[variables('nsgId')]"
+                    }
+                }
+            },
+            
+            {
+                "name": "[parameters('networkSecurityGroupName')]",
+                "type": "Microsoft.Network/networkSecurityGroups",
+                "apiVersion": "2020-11-01",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "securityRules": [
+                        {
+                            "name": "rdp",
+                            "properties": {
+                                "description": "Remote Desktop",
+                                "protocol": "Tcp",
+                                "sourcePortRange": "*",
+                                "destinationPortRange": "*",
+                                "sourceAddressPrefix": "*",
+                                "destinationAddressPrefix": "*",
+                                "destinationPortRange": "[parameters('customRdpPort')]",
+                                "access": "Allow",
+                                "priority": 1000,
+                                "direction": "Inbound"
+                            }
+                        }
+                    ]
+                }
+            },
+
+            {
+                "name": "[parameters('virtualNetworkName')]",
+                "type": "Microsoft.Network/virtualNetworks",
+                "apiVersion": "2019-09-01",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "addressSpace": {
+                        "addressPrefixes": "[parameters('addressPrefixes')]"
+                    },
+                    "subnets": "[parameters('subnets')]"
+                }
+            },
+            {
+                "name": "[parameters('publicIpAddressName')]",
+                "type": "Microsoft.Network/publicIpAddresses",
+                "apiVersion": "2019-02-01",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "publicIpAllocationMethod": "[parameters('publicIpAddressType')]"
+                },
+                "sku": {
+                    "name": "[parameters('publicIpAddressSku')]"
+                }
+            }
+
+
+
+        
+        ],
+    "outputs": {}
+}
