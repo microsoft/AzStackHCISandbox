@@ -2,27 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-                //Network Parameters
-                "networkInterfaceName": {
-                    "type": "string",
-                    "defaultValue": "ashcihost001-Nic1"
-                },
-                "networkSecurityGroupName": {
-                    "type": "string",
-                    "defaultValue": "ashcihost001-nsg"
-                },
-                "publicIpAddressName": {
-                    "type": "string",
-                    "defaultValue": "ashcihost001-Publicip"
-                },
-                "publicIpAddressType": {
-                    "type": "string",
-                    "defaultValue": "Dynamic"
-                },
-                "publicIpAddressSku": {
-                    "type": "string",
-                    "defaultValue": "Basic"
-                },
+                
                  "customRdpPort": {
                     "type": "string",
                     "defaultValue": "3389",
@@ -31,7 +11,7 @@
                     }
                  },
 
-                 //Virtual Machine Parameters
+                 
                 "virtualMachineName": {
                     "type": "string",
                     "defaultValue": "AzSHCIHost001",
@@ -137,7 +117,7 @@
                     "type": "securestring"
                 },
 
-                //Functional Parameters 
+                
                 "autoShutdownStatus": {
                     "type": "string",
                     "defaultValue": "Enabled",
@@ -320,14 +300,14 @@
                 "publicIpAddressName": "AzSHCILabPubIP",
                 "publicIpAddressType": "Dynamic",
                 "publicIpAddressSku": "Basic",
-                "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
+                "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
                 "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
                 "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]"
             
 
             },
     "resources": [
-            //Network Resources
+            
             {
             "name": "[variables('publicIpAddressName')]",
             "type": "Microsoft.Network/publicIpAddresses",
@@ -428,7 +408,7 @@
         },
 
     //Virtual Machine Resources
-        {
+    {
             "name": "[parameters('virtualMachineName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2020-12-01",
@@ -437,14 +417,6 @@
                 "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]"
             ],
             "properties": {
-                "osProfile": {
-                    "computerName": "[parameters('virtualMachineName')]",
-                    "adminUsername": "[parameters('adminUsername')]",
-                    "adminPassword": "[parameters('adminPassword')]",
-                    "windowsConfiguration": {
-                        "provisionVmAgent": true
-                    }
-                },
                 "hardwareProfile": {
                     "vmSize": "[parameters('virtualMachineSize')]"
                 },
@@ -452,7 +424,7 @@
                     "imageReference": {
                         "publisher": "MicrosoftWindowsServer",
                         "offer": "WindowsServer",
-                        "sku": "[if(equals(parameters('virtualMachineGeneration'), 'Generation 2'), '2022-datacenter-gensecond', '2022-Datacenter')]",
+                        "sku": "[if(equals(parameters('virtualMachineGeneration'), 'Generation 2'), '2019-datacenter-gensecond', '2019-Datacenter')]",
                         "version": "latest"
                     },
                     "osDisk": {
@@ -478,14 +450,22 @@
                         }
                     ]
                 },
-                "networkProfile": {
+               "networkProfile": {
                     "networkInterfaces": [
                         {
                             "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaceName'))]"
                         }
                     ]
                 },
-                "diagnosticsProfile": {
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachineName')]",
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]",
+                    "windowsConfiguration": {
+                        "provisionVmAgent": true
+                    }
+                },
+               "diagnosticsProfile": {
                     "bootDiagnostics": {
                         "enabled": true
                     }
@@ -496,7 +476,7 @@
                     {
                     "type": "extensions",
                     "name": "ConfigureAsHciHost",
-                    "apiVersion": "2020-06-01",
+                    "apiVersion": "2018-06-01",
                     "location": "[resourceGroup().location]",
                     "dependsOn": [
                         "[parameters('virtualMachineName')]" ],
@@ -506,9 +486,7 @@
                         "typeHandlerVersion": "2.77",
                         "autoUpgradeMinorVersion": true,
                         "settings": {
-                            "modulesUrl": "[variables('dscUri')]",
                             "wmfVersion": "latest",
-                            "configurationFunction": "ashcihost.ps1\\ASHCIHost",
                             "configuration": {
                                 "url": "[variables('dscUri')]",
                                 "script": "ashcihost.ps1",
@@ -529,8 +507,9 @@
                     }
                 }
             ]
-        },
         
+        },
+    
         {
             "name": "[concat('shutdown-computevm-', parameters('virtualMachineName'))]",
             "type": "Microsoft.DevTestLab/schedules",
