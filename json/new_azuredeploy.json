@@ -97,6 +97,7 @@
                         "description": "The Storage type of the VM data disk. If your VM contains an 's' in the VM size, you can select Premium_LRS storage for increased performance, but at a higher cost."
                     }
                 },
+                /*
                 "dataDiskSize": {
                     "type": "string",
                     "defaultValue": "256",
@@ -109,6 +110,7 @@
                         "description": "The size of the individual data disks in GiB. 8 of these will be provisioned therefore 256GiB is the recommended default."
                     }
                 },
+                */
                 "adminUsername": {
                     "type": "string",
                     "defaultValue": "AzureUser"
@@ -438,7 +440,7 @@
                             "count": "[variables('dataDisksCount')]",
                             "input": {
                                 "name": "[concat(parameters('virtualMachineName'),'DataDisk',copyIndex('dataDisks'))]",
-                                "diskSizeGB": "[parameters('dataDiskSize')]",
+                                "diskSizeGB": "256",
                                 "lun": "[copyIndex('dataDisks')]",
                                 "createOption": "Empty",
                                 "caching": "None",
@@ -527,10 +529,7 @@
                 "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
             ]
         }
-
-
-        
-        ],
+    ],
     "outputs": {
         "adminUsername": {
             "type": "string",
