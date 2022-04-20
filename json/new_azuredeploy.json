@@ -287,7 +287,7 @@
     "variables": {
                 "dataDisksCount": 8,
                 "dscUri": "https://github.com/microsoft/AzStackHCISandbox/blob/main/DSC/ashcihost.zip?raw=true",
-                "artifactsLocation": "https://github.com/Azure/AzureStackHCI-EvalGuide/blob/main/deployment/",
+                "artifactsLocation": "https://raw.githubusercontent.com/Azure/AzureStackHCI-EvalGuide/main/deployment/",
                 "randomGUID": "[substring(uniqueString(subscription().subscriptionId, resourceGroup().id, parameters('virtualMachineName')),0,6)]",
                 "dnsNameForPublicIP": "[toLower(concat(parameters('virtualMachineName'), variables('randomGUID')))]",
                 "virtualNetworkName": "AzSHCILabvNet",
@@ -300,7 +300,7 @@
                 "publicIpAddressName": "AzSHCILabPubIP",
                 "publicIpAddressType": "Dynamic",
                 "publicIpAddressSku": "Basic",
-                "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
+               // "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
                 "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
                 "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]"
             
@@ -330,7 +330,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[uri(variables('artifactsLocation'), concat('json/vnet.json'))]",
+                    "uri": "[uri(variables('artifactsLocation'),'json/vnet.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
