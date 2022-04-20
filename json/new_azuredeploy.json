@@ -407,7 +407,6 @@
             }
         },
 
-    //Virtual Machine Resources
     {
             "name": "[parameters('virtualMachineName')]",
             "type": "Microsoft.Compute/virtualMachines",
