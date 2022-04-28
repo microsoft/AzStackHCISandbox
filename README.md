@@ -150,7 +150,7 @@ For your convience a script has been added to automate that registration process
 
     Launch the link to Windows Admin Center
 
-    Add the Hyper-Converged Cluster *AzStackCluster* to *Windows Admin Center* with *Network Controller*: [https://nc01.contosoc.com](https://nc01.contosoc.com) and you're off and ready to go!
+    Add the Hyper-Converged Cluster *AzStackCluster* to *Windows Admin Center* with *Network Controller*: [https://nc01.contoso.com](https://nc01.contoso.com) and you're off and ready to go!
 
 ![Add Hyper-Converged Cluster Connection](media/AddHCCluster.png)
 
