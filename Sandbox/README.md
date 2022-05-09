@@ -12,11 +12,10 @@ validation of some Azure Stack HCI features without the time consuming process o
 
 >**Azure Stack HCI Operator's Sandbox is not a production solution!** The Azure Stack HCI Operator's Sandbox's scripts have been modified to work in a limited resource environment as well as in a Microsoft Azure virtual machine. Because of this, it is not fault tolerant, is not designed to be highly available, and lacks the nimble speed and resilience of a **real** Microsoft Azure Stack HCI deployment.
 
-Also, be aware that Azure Stack HCI Operator's Sandbox  is **NOT** designed to be managed by System Center Virtual Machine Manager (SCVMM), but by Windows Admin Center. Let me know if you need a version that uses SCVMM. If there are enough requests, I will create a version for that.
 
 ## History
 
-Azure Stack HCI Operator's Sandbox  is based on a *really* fast refactoring of scripts that I wrote for myself to rapidly create online labs for Microsoft Software Defined Networking using SCVMM. The SCVMM scripts have been stripped out and replaced with a stream-lined version that uses Windows Admin Center for the management of Microsoft SDN. As time has progressed, this environment has become invaluable to performing operational evaluations of Windows Admin Center and SDN without the requirement for 
+Azure Stack HCI Operator's Sandbox  is based on a *really* fast refactoring of scripts that I wrote for myself to rapidly create online labs for Microsoft Software Defined Networking. The scripts have been stream-lined to use Windows Admin Center for the management of Microsoft SDN. As time has progressed, this environment has become invaluable to performing operational evaluations of Windows Admin Center and SDN without the requirement for 
 
 ## Scenarios
 
