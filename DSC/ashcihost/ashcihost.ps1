@@ -106,7 +106,7 @@ Configuration ASHCIHost {
     }
     cShortcut "BuildScript" {
         Path="C:\Users\Public\Desktop\New-AzSHCISandbox.lnk"
-        Target="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoExit C:\AzHCI_Sandbox\AzSHCISandbox-main\New-AzSHCISandbox.ps1"
+        Target="C:\AzHCI_Sandbox\AzSHCISandbox-main\New-AzSHCISandbox.ps1"
         WorkingDirectory="C:\AzHCI_Sandbox\AzSHCISandbox-main"
         Icon='shell32.dll,277'
         DependsOn="[xRemoteFile]ASHCIBuildScripts"
