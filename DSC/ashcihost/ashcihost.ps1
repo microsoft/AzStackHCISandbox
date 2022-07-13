@@ -12,6 +12,7 @@ Configuration ASHCIHost {
     [String]$ashci_uri="https://aka.ms/AAbbhkn",
     [String]$ashci_21h2="https://aka.ms/AAd8dvp",
     [String]$server2019_uri="https://aka.ms/AAbclsv",
+    [String]$server2022_uri="https://ashcisandbox.blob.core.windows.net/vhd/Server22DC-DE.vhdx",
     [String]$wacUri = "https://aka.ms/wacdownload"
     )
     
@@ -74,8 +75,8 @@ Configuration ASHCIHost {
         
     }
 
-    xRemoteFile "Server2019VHD"{
-        uri=$server2019_uri
+    xRemoteFile "Server2022VHD"{
+        uri=$server2022_uri
         DestinationPath="$env:SystemDrive\AzHCIVHDs\GUI.vhdx"
         DependsOn="[File]ASHCIBuildScripts"
     }

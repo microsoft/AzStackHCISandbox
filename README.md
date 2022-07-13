@@ -187,7 +187,8 @@ For your convience a script has been added to automate that registration process
 2) Login to Azure with Device Credentials, you will see this in yellow text with a code to input to "Microsoft.com/devicelogin.
 3) Select an Azure Region to deploy the cluster into from the list.
 
-
+** Important **
+> Make sure your Azure AD account has the proper permissions to register the Azure Stack HCI Cluster, you can check the [requirments here.](https://docs.microsoft.com/en-us/azure-stack/hci/deploy/register-with-azure)
 
 ### Run this from the Azure VM ###
 

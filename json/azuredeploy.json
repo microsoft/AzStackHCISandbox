@@ -286,7 +286,7 @@
     "functions": [],
     "variables": {
                 "dataDisksCount": 8,
-                "dscUri": "https://github.com/microsoft/AzStackHCISandbox/blob/main/DSC/ashcihost.zip?raw=true",
+                "dscUri": "https://github.com/microsoft/AzStackHCISandbox/blob/Server2022Update/DSC/ashcihost.zip?raw=true",
                 "artifactsLocation": "https://raw.githubusercontent.com/microsoft/AzStackHCISandbox/evalguide-Redesign-Work-Godfrey/",
                 "randomGUID": "[substring(uniqueString(subscription().subscriptionId, resourceGroup().id, parameters('virtualMachineName')),0,6)]",
                 "dnsNameForPublicIP": "[toLower(concat(parameters('virtualMachineName'), variables('randomGUID')))]",
@@ -423,7 +423,7 @@
                     "imageReference": {
                         "publisher": "MicrosoftWindowsServer",
                         "offer": "WindowsServer",
-                        "sku": "[if(equals(parameters('virtualMachineGeneration'), 'Generation 2'), '2019-datacenter-gensecond', '2019-Datacenter')]",
+                        "sku": "[if(equals(parameters('virtualMachineGeneration'), 'Generation 2'), '2022-datacenter-azure-edition', '2022-datacenter-g2')]",
                         "version": "latest"
                     },
                     "osDisk": {
