@@ -212,6 +212,10 @@ Add the Hyper-Converged Cluster *AzStackCluster* to *Windows Admin Center* with 
 
 ![Add Hyper-Converged Cluster Connection](media/AddHCCluster.png)
 
+## Validating the Cluster ##
+
+You may follow the steps in the Microsoft documentation [here](https://docs.microsoft.com/en-us/azure-stack/hci/deploy/validate), however you will not need to go through the `Validate Networking` part, as that validation is only necessary in a physical deployment of HCI. Since we've set up HCI in a nested virtualized environment, that validation doesn't apply to us here. 
+
 **Azure Stack HCI Sandbox (2/7/2021)**
 
 ![Photo of Fully Deplopyed ASHCI-Sandbox](media/AzSHCISandbox.png)
