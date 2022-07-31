@@ -153,7 +153,7 @@ Now that the Azure Resource is completed, you are ready to begin deploying the H
 #
 ### Important ###
 The HCI Sandbox was meant to help you understand Software Defined Networking in Azure Stack HCI, but if you DO NOT want to deploy SDN or you WANT to DEPLOY AKS on HCI, you will need to EDIT the Config file BEFORE deployment. This can be done by using notepad or ISE to edit line 47 of the Config file. 
-You will need to UPDATE the line "Configure NC= $True" to "ConfigureNC=$false" 
+You will need to UPDATE the line `ProvisionNC = $true` to `ProvisionNC = $false` 
 
 This is the neccesary step to be able to Install AKS on the HCI Sandbox.
 
