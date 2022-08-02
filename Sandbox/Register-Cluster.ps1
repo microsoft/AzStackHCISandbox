@@ -33,7 +33,7 @@ $adcred=Get-Credential -UserName "contoso\administrator" -Message "Provide AD Ac
         }
 
     #location (all locations where HostPool can be created)
-        $region=(Get-AzLocation | Where-Object Providers -Contains "Microsoft.DesktopVirtualization" | Out-GridView -OutputMode Single -Title "Please select Location for AVD Host Pool metadata").Location
+        $region=(Get-AzLocation | Where-Object Providers -Contains "Microsoft.AzureStackHCI" | Out-GridView -OutputMode Single -Title "Please select Location for register Azure Stack HCI cluster").Location
 
 #Register the Cluster
 Write-Host "Registering the Cluster" -ForegroundColor Green -BackgroundColor Black
