@@ -2545,11 +2545,19 @@ CertificateTemplate= WebServer
 
             # Install Chromium
 
+            Write-Verbose 'Installing Edgebrowser in admincenter vm'
+            $expression = "choco install microsoft-edge"
+            Invoke-Expression $expression
+            $ErrorActionPreference = "Stop" 
+            
+            <#
+            # Install Chromium
+
             Write-Verbose 'Installing Chromium browser in admincenter vm'
             $expression = "choco install googlechrome -y"
             Invoke-Expression $expression
             $ErrorActionPreference = "Stop" 
-            
+            #>
             # Install Set Default Browser
             Write-Verbose 'Installing setdefaultbrowser in admincenter vm'
             $expression = "choco install setdefaultbrowser -y"
@@ -2559,7 +2567,7 @@ CertificateTemplate= WebServer
        
             # Add Chromium to list of browsers
             Write-Verbose 'Setting Default Broswer on admincenter vm'
-            $expression = "SetDefaultBrowser.exe Chrome"
+            $expression = "SetDefaultBrowser.exe Edge"
             Invoke-Expression $expression
 
 
