@@ -11,7 +11,8 @@ Configuration ASHCIHost {
     [string]$customRdpPort,
     [String]$ashci_uri="https://aka.ms/AAbbhkn",
     [String]$ashci_21h2="https://aka.ms/AAd8dvp",
-    [String]$server2019_uri="https://aka.ms/AAbclsv",
+    #old[String]$server2019_uri="https://aka.ms/AAbclsv",
+    [String]$server2019_uri="https://aka.ms/AAhnj5y",
     [String]$server2022_uri="https://ashcisandbox.blob.core.windows.net/vhd/Server22DC-DE.vhdx",
     [String]$wacUri = "https://aka.ms/wacdownload"
     )
