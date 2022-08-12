@@ -2543,7 +2543,7 @@ CertificateTemplate= WebServer
             Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
             Start-Sleep -Seconds 10
 
-            # Install Chromium
+            # Install Edge
 
             Write-Verbose 'Installing Edgebrowser in admincenter vm'
             $expression = "choco install microsoft-edge"
@@ -2558,6 +2558,7 @@ CertificateTemplate= WebServer
             Invoke-Expression $expression
             $ErrorActionPreference = "Stop" 
             #>
+            
             # Install Set Default Browser
             Write-Verbose 'Installing setdefaultbrowser in admincenter vm'
             $expression = "choco install setdefaultbrowser -y"
