@@ -3374,7 +3374,7 @@ $VerbosePreference = "Continue"
 Resolve-Applications -SDNConfig $SDNConfig
 
 # Verify Internet Connectivity
-test-internetConnect
+#test-internetConnect
     
 # if single host installation, set up installation parameters
 
