@@ -1,6 +1,17 @@
+## Breaking News ##
+![](media/archcibox_full.png)
+
+Newly announced at Microsoft Ignite 2022 is a new partnership with the Arc Jumpstart team. Now you can build out the next generation of HCI-Sandbox in the newly announced Public Preview of [Jumpstart HCIBox](https://github.com/microsoft/azure_arc/blob/main/docs/azure_jumpstart_hcibox/_index.md). 
+
+This new solution builds upon HCI-Sandbox but offers a few additonal features like:
+* Automated Deployment of Azure Stack HCI Environment
+* Automated Registration of Azure Stack HCI Cluster
+* Automated Deployment of Azure Kubernetes Service
+* Automated Deployment of Azure Arc Connected Resource Bridge for Virtual Machine Deployment via Azure
+
 
 ![](media/microsoft-azure-stack-HCI-logo.png)
-**Welcome to the easiest deployment of Azure Stack HCI, full stack of your life!**
+# Welcome to the easiest deployment of Azure Stack HCI, full stack of your life!
 
 With this ARM Template you will be able to deploy a working, nested Azure Stack HCI cluster with Hyper-V, Storage Spaces Direct and Software Defined Networking, all manged by Windows Admin Center. It's so simple!
 
@@ -149,6 +160,137 @@ Go grab a coffee or lunch, the components need a few minutes to download, but on
 # Deployment-Post Azure #
 
 Now that the Azure Resource is completed, you are ready to begin deploying the HCI cluster. The Azure VM that you just deployed is only a Nested Host, to contain all the components neccesary for this 2 node HCI cluster.
+
+It is important to understand that by default RDP is disabled on the Public IP that is created for this Azure Virtual Machine. This is to protect the VM and your Azure Subscription, but this will prevent you from connecting to the Azure VM without using the Private IP address, and for that you will need a VPN or Peered VNet conneciton. You can alternatvily use on of the following options to connect to the VM:
+
+## Easiest Method to Connect-Enable RDP on the Network Security Group.
+In the Azure Portal, naviage to the Resource Group that you created in the Deployment.
+Select the Network Security Group; named AzSHCILabNSG.
+
+In the Inbound Security Rules you will see a rule labeled RDP and with a Priority of 1000. That rule has a default setting for "Action" to be Denied. The fasteds way to enable RDP to your Azure VM is to change this setting to "Allow."
+
+
+
+## Enable Just in Time Access
+The most secure method is to enable Just in Time Access to the VM. This will allow the "gates of RDP" to be opened for a time-limited access for a specified range or specific IP address. This method is the most prefered option, and you will need to enable this in the Azure Portal.
+
+Open the Virtual Machine Blade in the Azure Portal
+
+Select Configuration 
+
+Click and Enable just-in-time access.
+
+### Enable JIT on your VMs from Microsoft Defender for Cloud
+
+!["Configuring JIT VM access in Microsoft Defender for Cloud."](./media/jit-config-security-center.gif)
+
+From Defender for Cloud, you can enable and configure the JIT VM access.
+
+1. Open the **Workload protections dashboard** and from the advanced protection area, select **Just-in-time VM access**.
+
+    The **Just-in-time VM access** page opens with your VMs grouped into the following tabs:
+
+    - **Configured** - VMs that have been already been configured to support just-in-time VM access. For each VM, the configured tab shows:
+        - the number of approved JIT requests in the last seven days
+        - the last access date and time
+        - the connection details configured
+        - the last user
+    - **Not configured** - VMs without JIT enabled, but that can support JIT. We recommend that you enable JIT for these VMs.
+    - **Unsupported** - VMs without JIT enabled and which don't support the feature. Your VM might be in this tab for the following reasons:
+      - Missing network security group (NSG) or Azure Firewall - JIT requires an NSG to be configured or a Firewall configuration (or both)
+      - Classic VM - JIT supports VMs that are deployed through Azure Resource Manager, not 'classic deployment'. [Learn more about classic vs Azure Resource Manager deployment models](../azure-resource-manager/management/deployment-models.md).
+      - Other - Your VM might be in this tab if the JIT solution is disabled in the security policy of the subscription or the resource group.
+
+1. From the **Not configured** tab, mark the VMs to protect with JIT and select **Enable JIT on VMs**. 
+
+    The JIT VM access page opens listing the ports that Defender for Cloud recommends protecting:
+    - 22 - SSH
+    - 3389 - RDP
+    - 5985 - WinRM 
+    - 5986 - WinRM
+
+    To accept the default settings, select **Save**.
+
+1. To customize the JIT options:
+
+    - Add custom ports with the **Add** button. 
+    - Modify one of the default ports, by selecting it from the list.
+
+    For each port (custom and default) the **Add port configuration** pane offers the following options:
+
+    - **Protocol**- The protocol that is allowed on this port when a request is approved
+    - **Allowed source IPs**- The IP ranges that are allowed on this port when a request is approved
+    - **Maximum request time**- The maximum time window during which a specific port can be opened
+
+     1. Set the port security to your needs.
+
+     1. Select **OK**.
+
+1. Select **Save**.
+
+<a name="jit-modify"></a>
+
+### Edit the JIT configuration on a JIT-enabled VM using Defender for Cloud
+
+You can modify a VM's just-in-time configuration by adding and configuring a new port to protect for that VM, or by changing any other setting related to an already protected port.
+
+To edit the existing JIT rules for a VM:
+
+1. Open the **Workload protections dashboard** and from the advanced protection area, select **Just-in-time VM access**.
+
+1. From the **Configured** tab, right-click on the VM to which you want to add a port, and select edit. 
+
+    ![Editing a JIT VM access configuration in Microsoft Defender for Cloud.](./media/jit-policy-edit-security-center.png)
+
+1. Under **JIT VM access configuration**, you can either edit the existing settings of an already protected port or add a new custom port.
+
+1. When you've finished editing the ports, select **Save**.
+ 
+### [**Azure virtual machines**](#tab/jit-config-avm)
+
+### Enable JIT on your VMs from Azure virtual machines
+
+You can enable JIT on a VM from the Azure virtual machines pages of the Azure portal.
+![Configuring JIT VM access in Azure virtual machines.](./media/jit-config-virtual-machines.gif)
+
+
+> [!TIP]
+> If a VM already has just-in-time enabled, when you go to its configuration page you'll see that just-in-time is enabled and you can use the link to open the just-in-time VM access page in Defender for Cloud, and view and change the settings.
+
+1. From the [Azure portal](https://portal.azure.com), search for and select **Virtual machines**. 
+
+1. Select the virtual machine you want to protect with JIT.
+
+1. In the menu, select **Configuration**.
+
+1. Under **Just-in-time access**, select **Enable just-in-time**. 
+
+    This enables just-in-time access for the VM using the following default settings:
+
+    - Windows machines:
+        - RDP port 3389
+        - Three hours of maximum allowed access
+        - Allowed source IP addresses is set to Any
+    - Linux machines:
+        - SSH port 22
+        - Three hours of maximum allowed access
+        - Allowed source IP addresses is set to Any
+
+1. To edit any of these values, or add more ports to your JIT configuration, use Microsoft Defender for Cloud's just-in-time page:
+
+    1. From Defender for Cloud's menu, select **Just-in-time VM access**.
+
+    1. From the **Configured** tab, right-click on the VM to which you want to add a port, and select edit. 
+
+        ![Editing a JIT VM access configuration in Microsoft Defender for Cloud.](./media/just-in-time-access-usage/jit-policy-edit-security-center.png)
+
+    1. Under **JIT VM access configuration**, you can either edit the existing settings of an already protected port or add a new custom port.
+
+    1. When you've finished editing the ports, select **Save**.
+
+
+
+
 
 #
 ### Important ###

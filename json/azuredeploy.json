@@ -395,7 +395,7 @@
                         "properties": {
                             "priority": 1000,
                             "protocol": "Tcp",
-                            "access": "Allow",
+                            "access": "Deny",
                             "direction": "Inbound",
                             "sourceAddressPrefix": "*",
                             "sourcePortRange": "*",
