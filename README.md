@@ -1,98 +1,97 @@
-## Breaking News ##
+## Breaking News
+
 ![](media/archcibox_full.png)
 
-Newly announced at Microsoft Ignite 2022 is a new partnership with the Arc Jumpstart team. Now you can build out the next generation of HCI-Sandbox in the newly announced Public Preview of [Jumpstart HCIBox](https://github.com/microsoft/azure_arc/blob/main/docs/azure_jumpstart_hcibox/_index.md). 
+Newly announced at Microsoft Ignite 2022 is a new partnership with the Arc Jumpstart team. Now you can build out the next generation of HCI-Sandbox in the newly announced Public Preview of [Jumpstart HCIBox](https://github.com/microsoft/azure_arc/blob/main/docs/azure_jumpstart_hcibox/_index.md).
 
 This new solution builds upon HCI-Sandbox but offers a few additonal features like:
-* Automated Deployment of Azure Stack HCI Environment
-* Automated Registration of Azure Stack HCI Cluster
-* Automated Deployment of Azure Kubernetes Service
-* Automated Deployment of Azure Arc Connected Resource Bridge for Virtual Machine Deployment via Azure
 
+- Automated Deployment of Azure Stack HCI Environment
+- Automated Registration of Azure Stack HCI Cluster
+- Automated Deployment of Azure Kubernetes Service
+- Automated Deployment of Azure Arc Connected Resource Bridge for Virtual Machine Deployment via Azure
 
 ![](media/microsoft-azure-stack-HCI-logo.png)
+
 # Welcome to the easiest deployment of Azure Stack HCI, full stack of your life!
 
 With this ARM Template you will be able to deploy a working, nested Azure Stack HCI cluster with Hyper-V, Storage Spaces Direct and Software Defined Networking, all manged by Windows Admin Center. It's so simple!
 
-The Azure Stack HCI Operator's Sandbox is a series of scripts that creates a [HyperConverged](https://docs.microsoft.com/en-us/windows-server/hyperconverged/) environment using four nested Hyper-V Virtual Machines. The purpose of the Azure Stack HCI Operator's Sandbox  is to provide operational training on Microsoft Azure Stack HCI as well as provide a development environment for DevOPs to assist in the creation and
+The Azure Stack HCI Operator's Sandbox is a series of scripts that creates a [HyperConverged](https://docs.microsoft.com/en-us/windows-server/hyperconverged/) environment using four nested Hyper-V Virtual Machines. The purpose of the Azure Stack HCI Operator's Sandbox is to provide operational training on Microsoft Azure Stack HCI as well as provide a development environment for DevOPs to assist in the creation and
 validation of some Azure Stack HCI features without the time consuming process of setting up physical servers and network routers\switches.
 
->**Azure Stack HCI Operator's Sandbox is not a production solution!** The Azure Stack HCI Operator's Sandbox's scripts have been modified to work in a limited resource environment as well as in a Microsoft Azure virtual machine. Because of this, it is not fault tolerant, is not designed to be highly available, and lacks the nimble speed and resilience of a **real** Microsoft Azure Stack HCI deployment.
+> **Azure Stack HCI Operator's Sandbox is not a production solution!** The Azure Stack HCI Operator's Sandbox's scripts have been modified to work in a limited resource environment as well as in a Microsoft Azure virtual machine. Because of this, it is not fault tolerant, is not designed to be highly available, and lacks the nimble speed and resilience of a **real** Microsoft Azure Stack HCI deployment.
 
 Want a deeper understanding of Deploying Azure Stack HCI, and ready to learn quickly about the components?
 
 <a href="https://sway.office.com/f4UzIZqrmGgMqTfZ?ref=Link.office.com/f4UzIZqrmGgMqTfZ?ref=Link" target="_blank">Deploying Azure Stack HCI</a>
 
-
-What is Azure Stack HCI?
------------
+## What is Azure Stack HCI?
 
 If you've landed on this page, and you're still wondering what Azure Stack HCI 21H2 is, Azure Stack HCI 21H2 is a hyperconverged cluster solution that runs virtualized Windows and Linux workloads in a hybrid on-premises environment. Azure hybrid services enhance the cluster with capabilities such as cloud-based monitoring, site recovery, and backup, as well as a central view of all of your Azure Stack HCI 21H2 deployments in the Azure portal. You can manage the cluster with your existing tools including Windows Admin Center, System Center, and PowerShell.
 
 Initially based on Windows Server 2019, Azure Stack HCI 21H2 is now a specialized OS, running on your hardware, delivered as an Azure service with a subscription-based licensing model and hybrid capabilities built-in. Although Azure Stack HCI 21H2 is based on the same core operating system components as Windows Server, it's an entirely new product line focused on being the best virtualization host.
 
-If you're interested in learning more about what Azure Stack HCI 21H2 is, make sure you [check out the official documentation](https://docs.microsoft.com/en-us/azure-stack/hci/overview "What is Azure Stack HCI 21H2 documentation"), before coming back to continue your evaluation experience.  We'll refer to the docs in various places in the guide, to help you build your knowledge of Azure Stack HCI 21H2.
+If you're interested in learning more about what Azure Stack HCI 21H2 is, make sure you [check out the official documentation](https://docs.microsoft.com/en-us/azure-stack/hci/overview "What is Azure Stack HCI 21H2 documentation"), before coming back to continue your evaluation experience. We'll refer to the docs in various places in the guide, to help you build your knowledge of Azure Stack HCI 21H2.
 
-Why follow this guide?
------------
+## Why follow this guide?
 
 This evaluation guide will walk you through standing up a sandboxed, isolated Azure Stack HCI 21H2 environment using **nested virtualization** in a **single Azure VM**. The important takeaway here is, by following this guide, you'll lay down a solid foundation on to which you can explore additional Azure Stack HCI 21H2 scenarios in the future, so keep checking back for additional scenarios over time.
 
-Interested in AKS on Azure Stack HCI?
------------
+## Interested in AKS on Azure Stack HCI?
+
 If you're interested in evaluating AKS on Azure Stack HCI (AKS-HCI), and you're planning to evaluate all the solutions using nested virtualization in Azure, it's certainly tempting to run AKS-HCI on top of an Azure Stack HCI 21H2 nested cluster in an Azure VM, however we **strongly discourage** this approach due to the performance impact of multiple layers of nested virtualization. The recommended approach to test AKS-HCI in an Azure VM using [the official AKS on Azure Stack HCI eval guide](https://aka.ms/aks-hci-evalonazure "AKS on Azure Stack HCI eval guide").
 
-Evaluating in Azure
------------
+## Evaluating in Azure
 
 As with any infrastructure technology, in order to test, validate and evaluate the technology, there's typically a requirement for hardware. If you're fortunate enough to have multiple server-class pieces of hardware going spare (ideally hardware validated for Azure Stack HCI 21H2, found on our [Azure Stack HCI 21H2 Catalog](https://aka.ms/azurestackhcicatalog "Azure Stack HCI 21H2 Catalog")), you can certainly perform a more real-world evaluation of Azure Stack HCI 21H2.
 
 For the purpose of this evaluation guide however, we'll be relying on **nested virtualization** to allow us to consolidate a full lab infrastructure, down **onto a single Hyper-V host inside an Azure VM**.
 
-*************************
+---
 
-### Important Note - Production Deployments ###
+### Important Note - Production Deployments
+
 The use of nested virtualization in this evaluation guide is aimed at providing flexibility for evaluating Azure Stack HCI 21H2. For **production** use, **Azure Stack HCI 21H2 should be deployed on validated physical hardware**, of which you can find a vast array of choices on the [Azure Stack HCI 21H2 Catalog](https://aka.ms/azurestackhcicatalog "Azure Stack HCI 21H2 Catalog").
 
-*************************
+---
 
-Nested Virtualization
------------
+## Nested Virtualization
+
 If you're not familiar with Nested Virtualization, at a high level, it allows a virtualization platform, such as Hyper-V, or VMware ESXi, to run virtual machines that, within those virtual machines, run a virtualization platform. It may be easier to think about this in an architectural view.
 
 ![Nested virtualization architecture](/media/nested_virt.png "Nested virtualization architecture")
 
-As you can see from the graphic, at the base layer, you have your physical hardware, onto which you install a hypervisor. In this case, for our example, we're using Windows Server 2019 with the Hyper-V role enabled.  The hypervisor on the lowest level is considered L0 or the level 0 hypervisor.  On that physical host, you create a virtual machine, and into that virtual machine, you deploy an OS that itself, has a hypervisor enabled.  In this example, that 1st Virtualized Layer is running a **nested** Azure Stack HCI 21H2 operating system. This would be an L1 or level 1 hypervisor.  Finally, in our example, inside the Azure Stack HCI 21H2 OS, you create a virtual machine to run a workload.  This could in fact also contain a hypervisor, which would be known as the L2 or level 2 hypervisor, and so the process continues, with multiple levels of nested virtualization possible.
+As you can see from the graphic, at the base layer, you have your physical hardware, onto which you install a hypervisor. In this case, for our example, we're using Windows Server 2019 with the Hyper-V role enabled. The hypervisor on the lowest level is considered L0 or the level 0 hypervisor. On that physical host, you create a virtual machine, and into that virtual machine, you deploy an OS that itself, has a hypervisor enabled. In this example, that 1st Virtualized Layer is running a **nested** Azure Stack HCI 21H2 operating system. This would be an L1 or level 1 hypervisor. Finally, in our example, inside the Azure Stack HCI 21H2 OS, you create a virtual machine to run a workload. This could in fact also contain a hypervisor, which would be known as the L2 or level 2 hypervisor, and so the process continues, with multiple levels of nested virtualization possible.
 
 The use of nested virtualization opens up amazing opportunities for building complex scenarios on significantly reduced hardware footprints, however it shouldn't be seen as a substitute for real-world deployments, performance and scale testing etc.
 
-Deployment of Azure Stack HCI 21H2 nested in Azure
------------
+## Deployment of Azure Stack HCI 21H2 nested in Azure
+
 For those of you who don't have multiple server-class pieces of hardware to test a full hyperconverged solution, this evaluation guide will detail using **nested virtualization** in Azure to evaluate Azure Stack HCI.
 
 ![Architecture diagram for Azure Stack HCI 21H2 nested in Azure](/media/nested_virt_arch_ga_oct21.png "Architecture diagram for Azure Stack HCI 21H2 nested in Azure")
 
-In this configuration, you'll take advantage of the nested virtualization support provided within certain Azure VM sizes.  You'll deploy a single Azure VM running Windows Server 2019 to act as your main Hyper-V host - and through PowerShell DSC, this will be automatically configured with the relevant roles and features needed for this guide. It will also download all required binaries, and deploy 2 Azure Stack HCI 21H2 nodes, ready for clustering.
+In this configuration, you'll take advantage of the nested virtualization support provided within certain Azure VM sizes. You'll deploy a single Azure VM running Windows Server 2019 to act as your main Hyper-V host - and through PowerShell DSC, this will be automatically configured with the relevant roles and features needed for this guide. It will also download all required binaries, and deploy 2 Azure Stack HCI 21H2 nodes, ready for clustering.
 
 To reiterate, the whole configuration will run **inside the single Azure VM**.
 
-## Deploy to Azure ##
+## Deploy to Azure
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FAzStackHCISandbox%2Fmain%2Fjson%2Fazuredeploy.json)
 
 <!--
-## old ##  
+## old ##
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmgodfre3%2FAzSHCI-AZNested%2Fmain%2Fjson%2Fazuredeploy.json)
 -->
-### Prefer a video, no problem! Watch this Getting Started video to well...Get Started with the Azure Stack HCI Sandbox, and within about 2 hours you will be ready to test out Azure Stack HCI ###
+
+### Prefer a video, no problem! Watch this Getting Started video to well...Get Started with the Azure Stack HCI Sandbox, and within about 2 hours you will be ready to test out Azure Stack HCI
 
 [![AzStackHCISandbox-Getting Started](https://res.cloudinary.com/marcomontalbano/image/upload/v1624560307/video_to_markdown/images/youtube--nmQ12Ma1pD4-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://youtu.be/nmQ12Ma1pD4 "AzStackHCISandbox-Getting Started")
 
-# Custom Deployment- Azure Portal #
+# Custom Deployment- Azure Portal
 
 For your first step, you will want to click "Edit Parameters"
-
 
 You will need to supply the Resource Group and the Admin Password still, but this is a fairly easy process.
 
@@ -101,7 +100,7 @@ Hit Review+Create and jump to the "After Deployment Section"
 
 #
 
-# Custom Deployment - AZ PowerShell #
+# Custom Deployment - AZ PowerShell
 
 If you are more familiar with PowerShell and would rather do the deployment in Command Line, well Awesome, that is how you should be doing this. The instructions are below:
 
@@ -147,7 +146,7 @@ Give this a couple of minutes, and you will see your new VM, ASHCIHost001 if you
 
 #
 
-### Warning ###
+### Warning
 
 The deployment may error out, with a warning about the DSC extension not completing due to a system shutdown. Don't worry though. That's the beauty of DSC, the configuration will run every 15 minutes.
 
@@ -157,26 +156,26 @@ The deployment may error out, with a warning about the DSC extension not complet
 
 Go grab a coffee or lunch, the components need a few minutes to download, but once you see the shortcut on the desktop, named New-AZSHCI-Sandbox, you are ready to go.
 
-# Deployment-Post Azure #
+# Deployment-Post Azure
 
 Now that the Azure Resource is completed, you are ready to begin deploying the HCI cluster. The Azure VM that you just deployed is only a Nested Host, to contain all the components neccesary for this 2 node HCI cluster.
 
 It is important to understand that by default RDP is disabled on the Public IP that is created for this Azure Virtual Machine. This is to protect the VM and your Azure Subscription, but this will prevent you from connecting to the Azure VM without using the Private IP address, and for that you will need a VPN or Peered VNet conneciton. You can alternatvily use on of the following options to connect to the VM:
 
 ## Easiest Method to Connect-Enable RDP on the Network Security Group.
+
 In the Azure Portal, naviage to the Resource Group that you created in the Deployment.
 Select the Network Security Group; named AzSHCILabNSG.
 
 In the Inbound Security Rules you will see a rule labeled RDP and with a Priority of 1000. That rule has a default setting for "Action" to be Denied. The fasteds way to enable RDP to your Azure VM is to change this setting to "Allow."
 
-
-
 ## Enable Just in Time Access
+
 The most secure method is to enable Just in Time Access to the VM. This will allow the "gates of RDP" to be opened for a time-limited access for a specified range or specific IP address. This method is the most prefered option, and you will need to enable this in the Azure Portal.
 
 Open the Virtual Machine Blade in the Azure Portal
 
-Select Configuration 
+Select Configuration
 
 Click and Enable just-in-time access.
 
@@ -188,43 +187,44 @@ From Defender for Cloud, you can enable and configure the JIT VM access.
 
 1. Open the **Workload protections dashboard** and from the advanced protection area, select **Just-in-time VM access**.
 
-    The **Just-in-time VM access** page opens with your VMs grouped into the following tabs:
+   The **Just-in-time VM access** page opens with your VMs grouped into the following tabs:
 
-    - **Configured** - VMs that have been already been configured to support just-in-time VM access. For each VM, the configured tab shows:
-        - the number of approved JIT requests in the last seven days
-        - the last access date and time
-        - the connection details configured
-        - the last user
-    - **Not configured** - VMs without JIT enabled, but that can support JIT. We recommend that you enable JIT for these VMs.
-    - **Unsupported** - VMs without JIT enabled and which don't support the feature. Your VM might be in this tab for the following reasons:
-      - Missing network security group (NSG) or Azure Firewall - JIT requires an NSG to be configured or a Firewall configuration (or both)
-      - Classic VM - JIT supports VMs that are deployed through Azure Resource Manager, not 'classic deployment'. [Learn more about classic vs Azure Resource Manager deployment models](../azure-resource-manager/management/deployment-models.md).
-      - Other - Your VM might be in this tab if the JIT solution is disabled in the security policy of the subscription or the resource group.
+   - **Configured** - VMs that have been already been configured to support just-in-time VM access. For each VM, the configured tab shows:
+     - the number of approved JIT requests in the last seven days
+     - the last access date and time
+     - the connection details configured
+     - the last user
+   - **Not configured** - VMs without JIT enabled, but that can support JIT. We recommend that you enable JIT for these VMs.
+   - **Unsupported** - VMs without JIT enabled and which don't support the feature. Your VM might be in this tab for the following reasons:
+     - Missing network security group (NSG) or Azure Firewall - JIT requires an NSG to be configured or a Firewall configuration (or both)
+     - Classic VM - JIT supports VMs that are deployed through Azure Resource Manager, not 'classic deployment'. [Learn more about classic vs Azure Resource Manager deployment models](../azure-resource-manager/management/deployment-models.md).
+     - Other - Your VM might be in this tab if the JIT solution is disabled in the security policy of the subscription or the resource group.
 
-1. From the **Not configured** tab, mark the VMs to protect with JIT and select **Enable JIT on VMs**. 
+1. From the **Not configured** tab, mark the VMs to protect with JIT and select **Enable JIT on VMs**.
 
-    The JIT VM access page opens listing the ports that Defender for Cloud recommends protecting:
-    - 22 - SSH
-    - 3389 - RDP
-    - 5985 - WinRM 
-    - 5986 - WinRM
+   The JIT VM access page opens listing the ports that Defender for Cloud recommends protecting:
 
-    To accept the default settings, select **Save**.
+   - 22 - SSH
+   - 3389 - RDP
+   - 5985 - WinRM
+   - 5986 - WinRM
+
+   To accept the default settings, select **Save**.
 
 1. To customize the JIT options:
 
-    - Add custom ports with the **Add** button. 
-    - Modify one of the default ports, by selecting it from the list.
+   - Add custom ports with the **Add** button.
+   - Modify one of the default ports, by selecting it from the list.
 
-    For each port (custom and default) the **Add port configuration** pane offers the following options:
+   For each port (custom and default) the **Add port configuration** pane offers the following options:
 
-    - **Protocol**- The protocol that is allowed on this port when a request is approved
-    - **Allowed source IPs**- The IP ranges that are allowed on this port when a request is approved
-    - **Maximum request time**- The maximum time window during which a specific port can be opened
+   - **Protocol**- The protocol that is allowed on this port when a request is approved
+   - **Allowed source IPs**- The IP ranges that are allowed on this port when a request is approved
+   - **Maximum request time**- The maximum time window during which a specific port can be opened
 
-     1. Set the port security to your needs.
+   1. Set the port security to your needs.
 
-     1. Select **OK**.
+   1. Select **OK**.
 
 1. Select **Save**.
 
@@ -238,14 +238,14 @@ To edit the existing JIT rules for a VM:
 
 1. Open the **Workload protections dashboard** and from the advanced protection area, select **Just-in-time VM access**.
 
-1. From the **Configured** tab, right-click on the VM to which you want to add a port, and select edit. 
+1. From the **Configured** tab, right-click on the VM to which you want to add a port, and select edit.
 
-    ![Editing a JIT VM access configuration in Microsoft Defender for Cloud.](./media/jit-policy-edit-security-center.png)
+   ![Editing a JIT VM access configuration in Microsoft Defender for Cloud.](./media/jit-policy-edit-security-center.png)
 
 1. Under **JIT VM access configuration**, you can either edit the existing settings of an already protected port or add a new custom port.
 
 1. When you've finished editing the ports, select **Save**.
- 
+
 ### [**Azure virtual machines**](#tab/jit-config-avm)
 
 ### Enable JIT on your VMs from Azure virtual machines
@@ -253,49 +253,46 @@ To edit the existing JIT rules for a VM:
 You can enable JIT on a VM from the Azure virtual machines pages of the Azure portal.
 ![Configuring JIT VM access in Azure virtual machines.](./media/jit-config-virtual-machines.gif)
 
-
 > [!TIP]
 > If a VM already has just-in-time enabled, when you go to its configuration page you'll see that just-in-time is enabled and you can use the link to open the just-in-time VM access page in Defender for Cloud, and view and change the settings.
 
-1. From the [Azure portal](https://portal.azure.com), search for and select **Virtual machines**. 
+1. From the [Azure portal](https://portal.azure.com), search for and select **Virtual machines**.
 
 1. Select the virtual machine you want to protect with JIT.
 
 1. In the menu, select **Configuration**.
 
-1. Under **Just-in-time access**, select **Enable just-in-time**. 
+1. Under **Just-in-time access**, select **Enable just-in-time**.
 
-    This enables just-in-time access for the VM using the following default settings:
+   This enables just-in-time access for the VM using the following default settings:
 
-    - Windows machines:
-        - RDP port 3389
-        - Three hours of maximum allowed access
-        - Allowed source IP addresses is set to Any
-    - Linux machines:
-        - SSH port 22
-        - Three hours of maximum allowed access
-        - Allowed source IP addresses is set to Any
+   - Windows machines:
+     - RDP port 3389
+     - Three hours of maximum allowed access
+     - Allowed source IP addresses is set to Any
+   - Linux machines:
+     - SSH port 22
+     - Three hours of maximum allowed access
+     - Allowed source IP addresses is set to Any
 
 1. To edit any of these values, or add more ports to your JIT configuration, use Microsoft Defender for Cloud's just-in-time page:
 
-    1. From Defender for Cloud's menu, select **Just-in-time VM access**.
+   1. From Defender for Cloud's menu, select **Just-in-time VM access**.
 
-    1. From the **Configured** tab, right-click on the VM to which you want to add a port, and select edit. 
+   1. From the **Configured** tab, right-click on the VM to which you want to add a port, and select edit.
 
-        ![Editing a JIT VM access configuration in Microsoft Defender for Cloud.](./media/just-in-time-access-usage/jit-policy-edit-security-center.png)
+      ![Editing a JIT VM access configuration in Microsoft Defender for Cloud.](./media/just-in-time-access-usage/jit-policy-edit-security-center.png)
 
-    1. Under **JIT VM access configuration**, you can either edit the existing settings of an already protected port or add a new custom port.
+   1. Under **JIT VM access configuration**, you can either edit the existing settings of an already protected port or add a new custom port.
 
-    1. When you've finished editing the ports, select **Save**.
-
-
-
-
+   1. When you've finished editing the ports, select **Save**.
 
 #
-### Important ###
-The HCI Sandbox was meant to help you understand Software Defined Networking in Azure Stack HCI, but if you DO NOT want to deploy SDN or you WANT to DEPLOY AKS on HCI, you will need to EDIT the Config file BEFORE deployment. This can be done by using notepad or ISE to edit line 47 of the Config file. 
-You will need to UPDATE the line `ProvisionNC = $true` to `ProvisionNC = $false` 
+
+### Important
+
+The HCI Sandbox was meant to help you understand Software Defined Networking in Azure Stack HCI, but if you DO NOT want to deploy SDN or you WANT to DEPLOY AKS on HCI, you will need to EDIT the Config file BEFORE deployment. This can be done by using notepad or ISE to edit line 47 of the Config file.
+You will need to UPDATE the line `ProvisionNC = $true` to `ProvisionNC = $false`
 
 This is the neccesary step to be able to Install AKS on the HCI Sandbox.
 
@@ -303,60 +300,57 @@ This is the neccesary step to be able to Install AKS on the HCI Sandbox.
 
 You have 2 main options for deploying the HCI cluster:
 
-1) Build Script located on the Desktop of the Azure Virtual Machine- simply run this script and 1-2 hours later cluster should be deployed.
-2) Run the script from powershell and monitor the progress. The code is available here:
+1. Build Script located on the Desktop of the Azure Virtual Machine- simply run this script and 1-2 hours later cluster should be deployed.
+2. Run the script from powershell and monitor the progress. The code is available here:
 
    ```powershell
    & C:\AzHCI_Sandbox\AzSHCISandbox-main\New-AzSHCISandbox.ps1
    ```
 
+### Important
 
+If you find during the installation that something went wrong, please run the Installation Script in a PowerShell window, as this is the only way to understand the issue. If you have an issue during installation, file an Issue in GitHub for this Repo, and provide the Error Details from this process.
 
-### Important ###
-If you find during the installation that something went wrong, please run the Installation Script in a PowerShell window, as this is the only way to understand the issue. If you have an issue during installation, file an Issue in GitHub for this Repo, and provide the Error Details from this process. 
 #
-
 
 Once the build is complete, you will see the shortcut to RDP the Admin Center Server. You can use this to RDP your Windows 10 Workstation and begin using the HCI Sandbox.
 
-# Post Deployment - HCI Cluster Registration #
+# Post Deployment - HCI Cluster Registration
 
 One of the first steps when deploying Azure Stack HCI is registraiton of the Cluster to your Azure Subscription. You can register the cluster in a number of ways including with Windows Admin Center, instructions are available here.
 
-For your convience a script has been added to automate that registration process.  Run the code below in Powershell, you will be prompted for three additional items:
+For your convience a script has been added to automate that registration process. Run the code below in Powershell, you will be prompted for three additional items:
 
-1) Login for the Contoso Domain Admin Account  ( Default is "Password01)
-2) Login to Azure with Device Credentials, you will see this in yellow text with a code to input to "Microsoft.com/devicelogin.
-3) Select an Azure Region to deploy the cluster into from the list.
+1. Login for the Contoso Domain Admin Account ( Default is "Password01)
+2. Login to Azure with Device Credentials, you will see this in yellow text with a code to input to "Microsoft.com/devicelogin.
+3. If you have multiple subscriptions, you will be prompted to select the subscription to register the cluster.
+4. Select an Azure Region to deploy the cluster into from the list.
 
 ** Important **
+
 > Make sure your Azure AD account has the proper permissions to register the Azure Stack HCI Cluster, you can check the [requirments here.](https://docs.microsoft.com/en-us/azure-stack/hci/deploy/register-with-azure)
 
-### Run this from the Azure VM ###
+### Run this from the Azure VM
 
 ```Powershell
 & C:\AzHCI_Sandbox\AzSHCISandbox-main\Register-Cluster.ps1
 ```
 
+# After Azure Deployment
 
-
-# After Azure Deployment #
-
-## Connecting to Admin Center to Manage the Cluster ##
+## Connecting to Admin Center to Manage the Cluster
 
 Using RDP, log into the 'Admincenter' virtual machine with your creds: User: Contoso\Administrator Password: Password01
 
 Launch the link to Windows Admin Center
 
-Add the Hyper-Converged Cluster *AzStackCluster* to *Windows Admin Center* with *Network Controller*: [https://nc01.contoso.com](https://nc01.contoso.com) and you're off and ready to go!
-
-    
+Add the Hyper-Converged Cluster _AzStackCluster_ to _Windows Admin Center_ with _Network Controller_: [https://nc01.contoso.com](https://nc01.contoso.com) and you're off and ready to go!
 
 ![Add Hyper-Converged Cluster Connection](media/AddHCCluster.png)
 
-## Validating the Cluster ##
+## Validating the Cluster
 
-You may follow the steps in the Microsoft documentation [here](https://docs.microsoft.com/en-us/azure-stack/hci/deploy/validate), however you will not need to go through the `Validate Networking` part, as that validation is only necessary in a physical deployment of HCI. Since we've set up HCI in a nested virtualized environment, that validation doesn't apply to us here. 
+You may follow the steps in the Microsoft documentation [here](https://docs.microsoft.com/en-us/azure-stack/hci/deploy/validate), however you will not need to go through the `Validate Networking` part, as that validation is only necessary in a physical deployment of HCI. Since we've set up HCI in a nested virtualized environment, that validation doesn't apply to us here.
 
 **Azure Stack HCI Sandbox (2/7/2021)**
 
@@ -365,27 +359,27 @@ You may follow the steps in the Microsoft documentation [here](https://docs.micr
 The Azure Stack HCI Sandbox is a series of scripts that creates a [HyperConverged](https://docs.microsoft.com/en-us/windows-server/hyperconverged/) environment using four nested Hyper-V Virtual Machines. The purpose of the SDN Sandbox is to provide operational training on Microsoft SDN as well as provide a development environment for DevOPs to assist in the creation and
 validation of SDN features without the time consuming process of setting up physical servers and network routers\switches.
 
->**SDN Sandbox is not a production solution!** SDN Sandbox's scripts have been modified to work in a limited resource environment. Because of this, it is not fault tolerant, is not designed to be highly available, and lacks the nimble speed of a **real** Microsoft SDN deployment.
+> **SDN Sandbox is not a production solution!** SDN Sandbox's scripts have been modified to work in a limited resource environment. Because of this, it is not fault tolerant, is not designed to be highly available, and lacks the nimble speed of a **real** Microsoft SDN deployment.
 
 ## History
 
-SDN Sandbox is a *really* fast refactoring of scripts that I wrote for myself to rapidly create online labs for SDN. The  scripts have been stream-lined to a version that uses Windows Admin Center for the management of Microsoft SDN.
+SDN Sandbox is a _really_ fast refactoring of scripts that I wrote for myself to rapidly create online labs for SDN. The scripts have been stream-lined to a version that uses Windows Admin Center for the management of Microsoft SDN.
 
 ## Scenarios
 
-The ``SCRIPTS\Scenarios`` folder in this solution will be updated quite frequently with full solutions\examples of popular SDN scenarios. Please keep checking for updates!
-
+The `SCRIPTS\Scenarios` folder in this solution will be updated quite frequently with full solutions\examples of popular SDN scenarios. Please keep checking for updates!
 
 ## Removing HCI Sandbox
+
 Not that you would ever want to do this, but if you want to start over with the HCI Sandbox deployment at anytime, the Delete Command has been built into the Installation Script. Simply run the following command on your Azure VM to restore the Azure VM to pre-deployment:
 
- ```powershell
-   & C:\AzHCI_Sandbox\AzSHCISandbox-main\New-AzSHCISandbox.ps1 -Delet $True
-   ```
+```powershell
+  & C:\AzHCI_Sandbox\AzSHCISandbox-main\New-AzSHCISandbox.ps1 -Delet $True
+```
 
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+This project welcomes contributions and suggestions. Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
 the rights to use your contribution. For details, visit <https://cla.opensource.microsoft.com>.
 
@@ -404,7 +398,6 @@ trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
-
 
 Contributions & Legal
 Contributing
